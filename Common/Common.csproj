@@ -43,7 +43,7 @@
       <HintPath>.\Microsoft.AspNet.SignalR.Client.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android">
-      <HintPath>..\..\..\FactoryBarcode\Util\bin\Debug\Mono.Android.dll</HintPath>
+      <HintPath>..\..\..\..\Documents\Visual Studio 2015\Projects\EggChat\Common\bin\Debug\Mono.Android.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>.\Newtonsoft.Json.dll</HintPath>

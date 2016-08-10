@@ -9,11 +9,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Android.Locations;
 
 namespace EggChat
 {
     public class MapActivity : Fragment
     {
+        LocationManager locMgr;
+        String locationProvider;
+        ChatActivity context;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -27,8 +32,25 @@ namespace EggChat
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
             var view = inflater.Inflate(Resource.Layout.Map, null);
 
+            this.context=(ChatActivity)this.Activity;
+            
+           
+            
+            //Context.LocationService
+
+
             return view;
             //return base.OnCreateView(inflater, container, savedInstanceState);
         }
+
+        private void GetLocation()
+        {
+            this.locMgr = (LocationManager)this.context.GetSystemService(Context.LocationService);
+            Criteria criteria = new Criteria();
+            criteria.Accuracy = Accuracy.Fine;
+            criteria.SpeedRequired = true;
+
+        }
+
     }
 }
