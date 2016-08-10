@@ -3,16 +3,16 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-              android:background="#FFD700">
+              android:background="#fff">
   <TextView
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:text="Initial Data Please Wait"
          android:layout_weight=".20"
          android:gravity="center" 
-         android:background="#FFD700"
+         android:background="#fff"
          android:textSize="14sp"
-         android:textColor="#FFA500"
+         android:textColor="#DEB887"
          />
   <ProgressBar
      style="?android:attr/progressBarStyleSmall"
@@ -24,7 +24,7 @@
       android:progress="0"
       android:secondaryProgress="70" 
      android:layout_weight=".20"
-     android:background="#FFD700"
+     android:background="#fff"
      />
   <ImageView
        android:layout_width="match_parent"

@@ -174,6 +174,15 @@ namespace EggChat
 			// aapt resource value: 0x7f02001c
 			public const int rightmsg = 2130837532;
 			
+			// aapt resource value: 0x7f02001d
+			public const int where = 2130837533;
+			
+			// aapt resource value: 0x7f02001e
+			public const int where2 = 2130837534;
+			
+			// aapt resource value: 0x7f02001f
+			public const int where3 = 2130837535;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
