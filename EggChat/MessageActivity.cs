@@ -29,8 +29,6 @@ namespace EggChat
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
             var view = inflater.Inflate(Resource.Layout.Message, null);
 
             _listMsg = view.FindViewById<ListView>(Resource.Id.listMsg);
@@ -56,10 +54,8 @@ namespace EggChat
             _msgAdapter.UserInfoLogs = logs;
 
             _listMsg.Adapter = _msgAdapter;
-            //listMsg.SetAdapter(msgAdapter);
 
             return view;
-            //return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
         public void NotifyListChange()

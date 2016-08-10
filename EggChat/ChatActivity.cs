@@ -31,6 +31,13 @@ namespace EggChat
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Chat);
 
+            // Create your application here
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
             String UserInfoString = this.Intent.GetStringExtra("ItemRow");
 
             FriedInfo = JsonConvert.DeserializeObject<UserInfo>(UserInfoString);
@@ -56,8 +63,6 @@ namespace EggChat
             FragmentManager.PopBackStack(null, FragmentManager.PopBackStackInclusive);
 
             EggApp.mySignalR.GotMsgEvent += MySignalR_GotMsgEvent;
-
-            // Create your application here
         }
 
         private void MySignalR_GotMsgEvent(object sender, EventArgs e)

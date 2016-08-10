@@ -135,7 +135,9 @@
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\googlemap.html" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\b1.png" />
   </ItemGroup>
