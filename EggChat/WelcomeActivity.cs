@@ -32,7 +32,7 @@ namespace EggChat
 
             var progress= this.FindViewById<ProgressBar>(Resource.Id.progressbar_updown);
 
-            imgvi.SetImageResource(Resource.Drawable.where3);
+            imgvi.SetImageResource(Resource.Drawable.where2);
 
             System.Timers.Timer timer2 = new System.Timers.Timer();
 

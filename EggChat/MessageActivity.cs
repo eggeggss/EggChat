@@ -19,11 +19,14 @@ namespace EggChat
         private ICommunicateToMsg _commuticate;
         public ListView _listMsg;
         public MsgAdapter _msgAdapter;
+        public UserInfo _friedInfo;
+        public UserInfo _selfInfo;
+
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            
             // Create your fragment here
         }
 
@@ -37,8 +40,12 @@ namespace EggChat
 
             _context = (ChatActivity)this.Activity;
             _commuticate = this._context;
+            _friedInfo = this._context.FriedInfo;
+            _selfInfo = this._context.SelfInfo;
 
             _msgAdapter.context = _context;
+            _msgAdapter.FriedInfo = _friedInfo;
+            _msgAdapter.SelfInfo = _selfInfo;
 
             var editMsg = view.FindViewById<EditText>(Resource.Id.editMsg);
 
@@ -81,7 +88,8 @@ namespace EggChat
     {
         public ChatActivity context;
         public List<UserInfoLog> UserInfoLogs = new List<UserInfoLog>();
-
+        public UserInfo FriedInfo { set; get; }
+        public UserInfo SelfInfo { set; get; }
         public override UserInfoLog this[int position]
         {
             get
@@ -116,15 +124,18 @@ namespace EggChat
             }
 
             var txtMsg = convertView.FindViewById<TextView>(Resource.Id.txtMsg);
+            var imvFriend=convertView.FindViewById<ImageView>(Resource.Id.imvFriend);
+            var imvSelf = convertView.FindViewById<ImageView>(Resource.Id.imvMy);
 
             var userInfoLog = this.UserInfoLogs[position];
-
+            
             if (userInfoLog.Galary == "left")
             {
                 txtMsg.Gravity = GravityFlags.Left;
 
                 txtMsg.Text = "       " + userInfoLog.From + " :" + userInfoLog.Content;
                 txtMsg.SetBackgroundResource(Resource.Drawable.leftmsg);
+                imvFriend.SetImageResource(Convert.ToInt32(FriedInfo.ImagePath));
             }
             else
             {
@@ -132,6 +143,8 @@ namespace EggChat
 
                 txtMsg.Text = userInfoLog.Content + "       ";
                 txtMsg.SetBackgroundResource(Resource.Drawable.rightmsg);
+                imvSelf.SetImageResource(Convert.ToInt32(SelfInfo.ImagePath));
+
             }
 
             // txtMsg.TextAlignment = TextAlignment.Center;

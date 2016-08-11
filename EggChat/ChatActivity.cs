@@ -23,12 +23,15 @@ namespace EggChat
     [Activity(Label = "ChatActivity")]
     public class ChatActivity : Activity, ICommunicateToMsg
     {
-        private UserInfo FriedInfo;
-        private UserInfo SelfInfo;
+        public UserInfo FriedInfo;
+        public UserInfo SelfInfo;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            RequestWindowFeature(WindowFeatures.NoTitle);
+
             SetContentView(Resource.Layout.Chat);
 
             // Create your application here

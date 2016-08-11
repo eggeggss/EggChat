@@ -205,11 +205,14 @@ namespace EggChat
 			// aapt resource value: 0x7f060001
 			public const int btnMap = 2131099649;
 			
-			// aapt resource value: 0x7f060013
-			public const int btnSendMsg = 2131099667;
+			// aapt resource value: 0x7f060015
+			public const int btnSendMsg = 2131099669;
 			
 			// aapt resource value: 0x7f060005
 			public const int btn_open = 2131099653;
+			
+			// aapt resource value: 0x7f060012
+			public const int chkMap = 2131099666;
 			
 			// aapt resource value: 0x7f06000a
 			public const int editEmail = 2131099658;
@@ -217,8 +220,8 @@ namespace EggChat
 			// aapt resource value: 0x7f06000e
 			public const int editFind = 2131099662;
 			
-			// aapt resource value: 0x7f060012
-			public const int editMsg = 2131099666;
+			// aapt resource value: 0x7f060014
+			public const int editMsg = 2131099668;
 			
 			// aapt resource value: 0x7f060008
 			public const int editUserName = 2131099656;
@@ -232,11 +235,17 @@ namespace EggChat
 			// aapt resource value: 0x7f060003
 			public const int head_image = 2131099651;
 			
-			// aapt resource value: 0x7f060016
-			public const int img_icon = 2131099670;
+			// aapt resource value: 0x7f06001a
+			public const int img_icon = 2131099674;
 			
-			// aapt resource value: 0x7f060011
-			public const int listMsg = 2131099665;
+			// aapt resource value: 0x7f060016
+			public const int imvFriend = 2131099670;
+			
+			// aapt resource value: 0x7f060018
+			public const int imvMy = 2131099672;
+			
+			// aapt resource value: 0x7f060013
+			public const int listMsg = 2131099667;
 			
 			// aapt resource value: 0x7f060010
 			public const int listview = 2131099664;
@@ -244,8 +253,8 @@ namespace EggChat
 			// aapt resource value: 0x7f060006
 			public const int loginLayout = 2131099654;
 			
-			// aapt resource value: 0x7f060015
-			public const int progressbar_updown = 2131099669;
+			// aapt resource value: 0x7f060019
+			public const int progressbar_updown = 2131099673;
 			
 			// aapt resource value: 0x7f06000f
 			public const int refresher1 = 2131099663;
@@ -259,11 +268,14 @@ namespace EggChat
 			// aapt resource value: 0x7f06000b
 			public const int txtHead = 2131099659;
 			
-			// aapt resource value: 0x7f060014
-			public const int txtMsg = 2131099668;
+			// aapt resource value: 0x7f060017
+			public const int txtMsg = 2131099671;
 			
 			// aapt resource value: 0x7f060007
 			public const int txtUserName = 2131099655;
+			
+			// aapt resource value: 0x7f060011
+			public const int wvMap = 2131099665;
 			
 			static Id()
 			{

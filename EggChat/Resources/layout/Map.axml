@@ -5,5 +5,16 @@
     android:layout_height="match_parent"
     android:background="#f100"
   >
-
+  <WebView android:id="@+id/wvMap"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight=".80"
+           >
+    
+  </WebView>
+  <CheckBox android:id="@+id/chkMap"
+            android:text="允許對方取得您的位置"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".20"/>
 </LinearLayout>
