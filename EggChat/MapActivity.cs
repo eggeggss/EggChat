@@ -1,5 +1,6 @@
 using Android.App;
 using Android.Content;
+using Android.Locations;
 using Android.OS;
 using Android.Runtime;
 using Android.Util;
@@ -9,15 +10,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Android.Locations;
 
 namespace EggChat
 {
     public class MapActivity : Fragment
     {
-        LocationManager locMgr;
-        String locationProvider;
-        ChatActivity context;
+        private LocationManager locMgr;
+        private String locationProvider;
+        private ChatActivity context;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,12 +32,9 @@ namespace EggChat
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
             var view = inflater.Inflate(Resource.Layout.Map, null);
 
-            this.context=(ChatActivity)this.Activity;
-            
-           
-            
-            //Context.LocationService
+            this.context = (ChatActivity)this.Activity;
 
+            //Context.LocationService
 
             return view;
             //return base.OnCreateView(inflater, container, savedInstanceState);
@@ -49,8 +46,10 @@ namespace EggChat
             Criteria criteria = new Criteria();
             criteria.Accuracy = Accuracy.Fine;
             criteria.SpeedRequired = true;
-
+            criteria.SpeedAccuracy = Accuracy.High;
+            criteria.AltitudeRequired = true;
+            criteria.BearingRequired = true;
+            criteria.CostAllowed = true;
         }
-
     }
 }

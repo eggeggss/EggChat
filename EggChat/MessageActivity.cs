@@ -122,23 +122,22 @@ namespace EggChat
             if (userInfoLog.Galary == "left")
             {
                 txtMsg.Gravity = GravityFlags.Left;
-                txtMsg.Text = "       "+ userInfoLog.From + " :"+userInfoLog.Content ;
+
+                txtMsg.Text = "       " + userInfoLog.From + " :" + userInfoLog.Content;
                 txtMsg.SetBackgroundResource(Resource.Drawable.leftmsg);
-                
             }
             else
             {
                 txtMsg.Gravity = GravityFlags.Right;
 
-                txtMsg.Text =  userInfoLog.Content+"       ";
+                txtMsg.Text = userInfoLog.Content + "       ";
                 txtMsg.SetBackgroundResource(Resource.Drawable.rightmsg);
             }
-        
+
             // txtMsg.TextAlignment = TextAlignment.Center;
-           
-           
+
             //txtMsg.SetBackgroundResource(Resource.Drawable.bubble);
-           // txtMsg.Background.SetTintMode(Android.Graphics.PorterDuff.Mode.DstOver);
+            // txtMsg.Background.SetTintMode(Android.Graphics.PorterDuff.Mode.DstOver);
             return convertView;
             //throw new NotImplementedException();
         }
