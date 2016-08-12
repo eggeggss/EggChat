@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EggChat
 {
@@ -24,6 +25,8 @@ namespace EggChat
         public event EventHandler GotMsgEvent;
 
         public event EventHandlerUserList RefreschUserListEvent;
+
+        public event EventHandler ReceiveLocationEvent;
 
         public static SignalRProxy CreateSignalRProxyFactory(Context context)
         {
@@ -40,28 +43,46 @@ namespace EggChat
 
         public async void OpenConnection(object sender, UserInfo userinfo, EventHandler Compelte)
         {
-            var result = this._hubconnection.Start().ContinueWith((hubStat) =>
+            Task result = null;
+            try
             {
-                if (hubStat.IsFaulted)
+                result = this._hubconnection.Start().ContinueWith((hubStat) =>
                 {
-                    var handle = new Handler(Looper.MainLooper);
-                    handle.Post(() =>
+                    try
                     {
-                        Toast.MakeText(this.context, "ConnectionFail", ToastLength.Short).Show();
-                    });
-                    //System.Diagnostics.Debug.WriteLine("Fail Log", "error");
-                }
-                else
-                {
-                    this.RegisterUser(userinfo);
+                        if (hubStat.IsFaulted)
+                        {
+                            var handle = new Handler(Looper.MainLooper);
+                            handle.Post(() =>
+                            {
+                                Toast.MakeText(this.context, "ConnectionFail", ToastLength.Short).Show();
+                            });
+                        }
+                        else
+                        {
+                            this.RegisterUser(userinfo);
 
-                    var handle = new Handler(Looper.MainLooper);
-                    handle.Post(() =>
+                            var handle = new Handler(Looper.MainLooper);
+                            handle.Post(() =>
+                            {
+                                Toast.MakeText(this.context, "Register Me", ToastLength.Short).Show();
+                            });
+                        }
+                    }
+                    catch (Exception ex)
                     {
-                        Toast.MakeText(this.context, "Register Me", ToastLength.Short).Show();
-                    });
-                }
-            });
+                        var handle = new Handler(Looper.MainLooper);
+                        handle.Post(() =>
+                        {
+                            Toast.MakeText(this.context, String.Format("{0},{1}", "ConnectionContinueFail:", ex.Message), ToastLength.Short).Show();
+                        });
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this.context, String.Format("{0},{1}", "與伺服器連線時發生錯誤:", ex.Message), ToastLength.Short).Show();
+            }
 
             await result;
 
@@ -89,7 +110,20 @@ namespace EggChat
 
                 handler.Post(() =>
                 {
-                    this.RefreschUserListEvent(this, userinfo);
+                    if (this.RefreschUserListEvent != null)
+                        this.RefreschUserListEvent(this, userinfo);
+                });
+            });
+
+            //receiveFriendLocation
+            this._IhubProxy.On<UserInfo>("receiveLocation", (userinfo) =>
+            {
+                var handler = new Handler(Looper.MainLooper);
+
+                handler.Post(() =>
+                {
+                    if (this.ReceiveLocationEvent != null)
+                        this.ReceiveLocationEvent(this, userinfo);
                 });
             });
         }
@@ -98,34 +132,82 @@ namespace EggChat
 
         public void RegisterUser(UserInfo userinfo)
         {
-            this._IhubProxy.Invoke<UserInfo>("RegisterUser", userinfo);
+            if (this._hubconnection.State == ConnectionState.Connected)
+            {
+                this._IhubProxy.Invoke<UserInfo>("RegisterUser", userinfo);
+            }
+            else
+            {
+                Toast.MakeText(this.context, "與server尚未連線", ToastLength.Short).Show();
+            }
         }
 
         public void UnRegisterUser(UserInfo userinfo)
         {
-            this._IhubProxy.Invoke<UserInfo>("UnRegisterUser", userinfo);
+            if (this._hubconnection.State == ConnectionState.Connected)
+            {
+                this._IhubProxy.Invoke<UserInfo>("UnRegisterUser", userinfo);
+            }
+            else
+            {
+                Toast.MakeText(this.context, "與server尚未連線", ToastLength.Short).Show();
+            }
         }
 
         public void SendMsgTo(SignalRMessage msg)
         {
-            this._IhubProxy.Invoke<SignalRMessage>("SendMsgTo", msg);
+            if (this._hubconnection.State == ConnectionState.Connected)
+            {
+                this._IhubProxy.Invoke<SignalRMessage>("SendMsgTo", msg);
+            }
+            else
+            {
+                Toast.MakeText(this.context, "與server尚未連線", ToastLength.Short).Show();
+            }
         }
 
         public void SendMsgToAll(SignalRMessage msg)
         {
-            this._IhubProxy.Invoke<SignalRMessage>("SendMsgToAll", msg);
+            if (this._hubconnection.State == ConnectionState.Connected)
+            {
+                this._IhubProxy.Invoke<SignalRMessage>("SendMsgToAll", msg);
+            }
+            else
+            {
+                Toast.MakeText(this.context, "與server尚未連線", ToastLength.Short).Show();
+            }
+        }
+
+        public void SendLocation(UserInfo myinfo)
+        {
+            if (this._hubconnection.State == ConnectionState.Connected)
+            {
+                this._IhubProxy.Invoke<UserInfo>("SendLocation", myinfo);
+            }
+            else
+            {
+                Toast.MakeText(this.context, "與server尚未連線", ToastLength.Short).Show();
+            }
         }
 
         #endregion call server side
 
         public void CloseConnection()
         {
-            this._hubconnection.Stop();
+            if (this._hubconnection.State == ConnectionState.Connected)
+                this._hubconnection.Stop();
         }
 
         public void TriggerGotList()
         {
-            this._IhubProxy.Invoke("TriggerGotList");
+            if (this._hubconnection.State == ConnectionState.Connected)
+            {
+                this._IhubProxy.Invoke("TriggerGotList");
+            }
+            else
+            {
+                Toast.MakeText(this.context, "與server尚未連線", ToastLength.Short).Show();
+            }
             //return null;
         }
     }

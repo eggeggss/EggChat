@@ -14,7 +14,7 @@ using System.Text;
 
 namespace EggChat
 {
-    public class MapActivity : Fragment,ILocationListener
+    public class MapActivity : Fragment, ILocationListener
     {
         private LocationManager locMgr;
         private String locationProvider;
@@ -39,28 +39,33 @@ namespace EggChat
 
             GetLocation();
 
-            wvMap=view.FindViewById<WebView>(Resource.Id.wvMap);
+            wvMap = view.FindViewById<WebView>(Resource.Id.wvMap);
 
             wvMap.Settings.JavaScriptEnabled = true;
             wvMap.Settings.SetSupportZoom(true);
             wvMap.Settings.BuiltInZoomControls = true;
             wvMap.RequestFocus();
 
-            wvMap.SetWebViewClient(new MyWebView() {
+            wvMap.SetWebViewClient(new MyWebView()
+            {
                 mostRecentLocation = this.mostRecentLocation,
-                webViewReady = false            
+                webViewReady = false
             });
 
             wvMap.SetWebChromeClient(new WebChromeClient());
 
             wvMap.LoadUrl(MAP_URL);
 
+            var chkMap = view.FindViewById<CheckBox>(Resource.Id.chkMap);
+
+            chkMap.Click += (sender, obj) =>
+            {
+            };
 
             return view;
             //return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
-      
         private void GetLocation()
         {
             this.locMgr = (LocationManager)this.context.GetSystemService(Context.LocationService);
@@ -72,13 +77,11 @@ namespace EggChat
             criteria.BearingRequired = true;
             criteria.CostAllowed = true;
 
-            provider= this.locMgr.GetBestProvider(criteria, true);
+            provider = this.locMgr.GetBestProvider(criteria, true);
 
-            this.locMgr.RequestLocationUpdates(provider, 1, 0,this);
+            this.locMgr.RequestLocationUpdates(provider, 1, 0, this);
 
-            mostRecentLocation= this.locMgr.GetLastKnownLocation(provider);
-
-
+            mostRecentLocation = this.locMgr.GetLastKnownLocation(provider);
 
             if (mostRecentLocation == null)
             {
@@ -88,7 +91,6 @@ namespace EggChat
             {
                 String log = String.Format("{0},{1}", mostRecentLocation.Latitude, mostRecentLocation.Longitude);
                 System.Diagnostics.Debug.WriteLine(log, "Location");
-
             }
 
             if (mostRecentLocation == null)
@@ -96,18 +98,15 @@ namespace EggChat
                 Toast.MakeText(this.context, "無法取得定位", ToastLength.Short).Show();
                 //mostRecentLocation = locMgr.GetLastKnownLocation(LocationManager.NetworkProvider);
             }
-
         }
 
         private void LoadWebView()
         {
-
         }
-
 
         public void OnLocationChanged(Location location)
         {
-            String log = String.Format("{0},{1}",location.Latitude,location.Longitude);
+            String log = String.Format("{0},{1}", location.Latitude, location.Longitude);
             System.Diagnostics.Debug.WriteLine(log, "Location");
             //throw new NotImplementedException();
         }
@@ -128,11 +127,12 @@ namespace EggChat
         }
     }
 
-    public class MyWebView:WebViewClient
+    public class MyWebView : WebViewClient
     {
-        public bool webViewReady=false;
+        public bool webViewReady = false;
 
         public Location mostRecentLocation;
+
         public override void OnPageFinished(WebView view, string url)
         {
             base.OnPageFinished(view, url);
@@ -145,10 +145,8 @@ namespace EggChat
 
             if (webViewReady)
             {
-
                 view.LoadUrl(centerURL);
             }
         }
     }
-
 }

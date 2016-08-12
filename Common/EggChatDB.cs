@@ -81,5 +81,8 @@ namespace Common
         public bool HaveImage { set; get; }
         public DateTime DTCreate { set; get; }
         public String Galary { set; get; }
+
+        public double Lat { set; get; }
+        public double Lon { set; get; }
     }
 }
