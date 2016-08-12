@@ -52,36 +52,28 @@ namespace EggChat
                     {
                         if (hubStat.IsFaulted)
                         {
-                            var handle = new Handler(Looper.MainLooper);
-                            handle.Post(() =>
-                            {
-                                Toast.MakeText(this.context, "ConnectionFail", ToastLength.Short).Show();
-                            });
+                            Util.ToastHander(this.context, "ConnectionFail");
                         }
                         else
                         {
                             this.RegisterUser(userinfo);
 
-                            var handle = new Handler(Looper.MainLooper);
-                            handle.Post(() =>
-                            {
-                                Toast.MakeText(this.context, "Register Me", ToastLength.Short).Show();
-                            });
+                            Util.ToastHander(this.context, "Register Me");
+                            
                         }
                     }
                     catch (Exception ex)
                     {
-                        var handle = new Handler(Looper.MainLooper);
-                        handle.Post(() =>
-                        {
-                            Toast.MakeText(this.context, String.Format("{0},{1}", "ConnectionContinueFail:", ex.Message), ToastLength.Short).Show();
-                        });
+                        Util.ToastHander(this.context, String.Format("{0},{1}", "ConnectionContinueFail:", ex.Message));
+                       
                     }
                 });
             }
             catch (Exception ex)
             {
-                Toast.MakeText(this.context, String.Format("{0},{1}", "與伺服器連線時發生錯誤:", ex.Message), ToastLength.Short).Show();
+                Util.ToastHander(this.context, String.Format("{0},{1}", "與伺服器連線時發生錯誤:", ex.Message));
+
+                //Toast.MakeText(this.context, String.Format("{0},{1}", "與伺服器連線時發生錯誤:", ex.Message), ToastLength.Short).Show();
             }
 
             await result;
@@ -129,6 +121,7 @@ namespace EggChat
         }
 
         #region call server side
+        
 
         public void RegisterUser(UserInfo userinfo)
         {

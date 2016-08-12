@@ -1,16 +1,27 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.OS;
 using Android.Views;
+using Android.Widget;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Common
 {
     public class Util
     {
+        public static void ToastHander(Context context,String msg)
+        {
+            var handler = new Handler(Looper.MainLooper);
+
+            handler.Post(()=> {
+
+                Toast.MakeText(context, msg, ToastLength.Short).Show();
+            });
+        }
+
         public static void Dialog(Context context, String tile, String message, EventHandler<DialogClickEventArgs> ok, EventHandler<DialogClickEventArgs> cancel)
         {
             var dialog = new AlertDialog.Builder(context);
