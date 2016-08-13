@@ -7,6 +7,7 @@ using Android.Util;
 using Android.Views;
 using Android.Webkit;
 using Android.Widget;
+using Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace EggChat
         private static String MAP_URL = "file:///android_asset/googlemap.html";
         private String provider;
         private Location mostRecentLocation;
+        private bool lbSendMyLocation;
+        private UserInfo selfUserInfo;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,7 +39,7 @@ namespace EggChat
             var view = inflater.Inflate(Resource.Layout.Map, null);
 
             this.context = (ChatActivity)this.Activity;
-
+            selfUserInfo = this.context.SelfInfo;
             GetLocation();
 
             wvMap = view.FindViewById<WebView>(Resource.Id.wvMap);
@@ -58,9 +61,30 @@ namespace EggChat
 
             var chkMap = view.FindViewById<CheckBox>(Resource.Id.chkMap);
 
+            //打開flag開始傳送我的位置
             chkMap.Click += (sender, obj) =>
             {
+                if (chkMap.Checked)
+                {
+                    lbSendMyLocation = true;
+
+                    if (mostRecentLocation != null)
+                        SetMyLocationInfoAndSent(mostRecentLocation.Latitude, mostRecentLocation.Longitude);
+                }
+                else
+                {
+                    lbSendMyLocation = false;
+                }
             };
+
+
+            //取得對方的位置
+            EggApp.mySignalR.ReceiveLocationEvent += (s, e) =>
+            {
+                var userInfo= e as UserInfo;
+                System.Diagnostics.Debug.WriteLine(String.Format("Friend lacation=>{0},{1}",userInfo.Lat,userInfo.Lon), "Friend address");
+            };
+
 
             return view;
             //return base.OnCreateView(inflater, container, savedInstanceState);
@@ -104,26 +128,36 @@ namespace EggChat
         {
         }
 
+       
+        private void SetMyLocationInfoAndSent(double lat,double lon)
+        {
+            selfUserInfo.Lat = lat;
+            selfUserInfo.Lon = lon;
+            EggApp.mySignalR.SendLocation(selfUserInfo);
+
+        }
+
         public void OnLocationChanged(Location location)
         {
             String log = String.Format("{0},{1}", location.Latitude, location.Longitude);
             System.Diagnostics.Debug.WriteLine(log, "Location");
-            //throw new NotImplementedException();
+
+            if (lbSendMyLocation)
+            {
+                SetMyLocationInfoAndSent(location.Latitude, location.Longitude);
+            }
         }
 
         public void OnProviderDisabled(string provider)
         {
-            //throw new NotImplementedException();
         }
 
         public void OnProviderEnabled(string provider)
         {
-            //throw new NotImplementedException();
         }
 
         public void OnStatusChanged(string provider, [GeneratedEnum] Availability status, Bundle extras)
         {
-            //throw new NotImplementedException();
         }
     }
 

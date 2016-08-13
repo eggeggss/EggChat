@@ -51,7 +51,14 @@ namespace Common
 
         public void InsertUserInfoLogs(UserInfoLog log)
         {
-            _conn.Insert(log);
+            var logs= this.SelectUserInfoLogs(log.Email);
+
+            var findLog= logs.Find((userinfoHist) => {
+                return userinfoHist.Content == log.Content;
+            });
+
+            if(findLog!=null)
+             _conn.Insert(log);
         }
     }
 
@@ -66,6 +73,10 @@ namespace Common
         public String ImagePath { set; get; }
         public bool HaveImage { set; get; }
         public bool HaveNewMsg { set; get; }
+
+        public double Lat { set; get; }
+        public double Lon { set; get; }
+
     }
 
     public class UserInfoLog
@@ -81,8 +92,5 @@ namespace Common
         public bool HaveImage { set; get; }
         public DateTime DTCreate { set; get; }
         public String Galary { set; get; }
-
-        public double Lat { set; get; }
-        public double Lon { set; get; }
     }
 }

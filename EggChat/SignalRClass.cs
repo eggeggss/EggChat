@@ -72,8 +72,6 @@ namespace EggChat
             catch (Exception ex)
             {
                 Util.ToastHander(this.context, String.Format("{0},{1}", "與伺服器連線時發生錯誤:", ex.Message));
-
-                //Toast.MakeText(this.context, String.Format("{0},{1}", "與伺服器連線時發生錯誤:", ex.Message), ToastLength.Short).Show();
             }
 
             await result;
@@ -121,8 +119,6 @@ namespace EggChat
         }
 
         #region call server side
-        
-
         public void RegisterUser(UserInfo userinfo)
         {
             if (this._hubconnection.State == ConnectionState.Connected)
@@ -201,14 +197,12 @@ namespace EggChat
             {
                 Toast.MakeText(this.context, "與server尚未連線", ToastLength.Short).Show();
             }
-            //return null;
         }
     }
 
     public class SignalRMessage : EventArgs
     {
         public String From { set; get; }
-
         public String Email { set; get; }
         public String To { set; get; }
         public String Content { set; get; }

@@ -62,6 +62,7 @@ namespace EggChat
 
             _listMsg.Adapter = _msgAdapter;
 
+
             return view;
         }
 

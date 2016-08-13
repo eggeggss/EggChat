@@ -25,7 +25,7 @@ namespace EggChat
     {
         public UserInfo FriedInfo;
         public UserInfo SelfInfo;
-
+        public SignalRProxy SignalRProxy;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -33,7 +33,7 @@ namespace EggChat
             RequestWindowFeature(WindowFeatures.NoTitle);
 
             SetContentView(Resource.Layout.Chat);
-
+            this.SignalRProxy = EggApp.mySignalR;
             // Create your application here
         }
 

@@ -22,12 +22,9 @@ namespace EggChat
             RequestWindowFeature(WindowFeatures.NoTitle);
             SetContentView(Resource.Layout.WelCome);
 
-            //EggApp app= this.Application as EggApp;
-            // EggApp.eggChatDB;
             string folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             EggApp.eggChatDB = new EggChatDB(folder);
-            //EggApp.eggChatDB
-
+            
             var imgvi = this.FindViewById<ImageView>(Resource.Id.img_icon);
 
             var progress= this.FindViewById<ProgressBar>(Resource.Id.progressbar_updown);
@@ -46,9 +43,7 @@ namespace EggChat
                 {
                    
                     Intent intent = new Intent();
-                    // intent.SetFlags(ActivityFlags.NoHistory);
-                    //intent.SetClass(this, typeof(MainActivity));
-
+                    
                     if (EggApp.eggChatDB.SelectUserInfo().Count == 0)
                     {
                         intent.SetFlags(ActivityFlags.NoHistory);
@@ -69,8 +64,6 @@ namespace EggChat
 
             };
             timer2.Start();
-
-           
         }
     }
 }
