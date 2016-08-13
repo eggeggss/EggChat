@@ -51,14 +51,15 @@ namespace Common
 
         public void InsertUserInfoLogs(UserInfoLog log)
         {
-            var logs= this.SelectUserInfoLogs(log.Email);
+            var logs = this.SelectUserInfoLogs(log.Email);
 
-            var findLog= logs.Find((userinfoHist) => {
+            var findLog = logs.Find((userinfoHist) =>
+            {
                 return userinfoHist.Content == log.Content;
             });
 
-            if(findLog!=null)
-             _conn.Insert(log);
+            if (findLog == null)
+                _conn.Insert(log);
         }
     }
 
@@ -76,7 +77,6 @@ namespace Common
 
         public double Lat { set; get; }
         public double Lon { set; get; }
-
     }
 
     public class UserInfoLog
