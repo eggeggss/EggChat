@@ -20,7 +20,7 @@ namespace EggChat
         List<UserInfoLog> GetMessage();
     }
 
-    [Activity(Label = "ChatActivity")]
+    [Activity(Label = "ChatActivity", ConfigurationChanges = Android.Content.PM.ConfigChanges.Keyboard | Android.Content.PM.ConfigChanges.KeyboardHidden | Android.Content.PM.ConfigChanges.Orientation, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class ChatActivity : Activity, ICommunicateToMsg
     {
         public UserInfo FriedInfo;

@@ -25,7 +25,9 @@ namespace EggChat
         private String provider;
         private Location mostRecentLocation;
         private bool lbSendMyLocation;
-        private UserInfo selfUserInfo;
+        private UserInfo selfUserInfo, friendUserInfo;
+        private MyWebView mywbview;
+
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -40,6 +42,7 @@ namespace EggChat
 
             this.context = (ChatActivity)this.Activity;
             selfUserInfo = this.context.SelfInfo;
+            friendUserInfo = this.context.FriedInfo;
             GetLocation();
 
             wvMap = view.FindViewById<WebView>(Resource.Id.wvMap);
@@ -49,11 +52,13 @@ namespace EggChat
             wvMap.Settings.BuiltInZoomControls = true;
             wvMap.RequestFocus();
 
-            wvMap.SetWebViewClient(new MyWebView()
+            mywbview = new MyWebView()
             {
                 mostRecentLocation = this.mostRecentLocation,
                 webViewReady = false
-            });
+            };
+
+            wvMap.SetWebViewClient(mywbview);
 
             wvMap.SetWebChromeClient(new WebChromeClient());
 
@@ -82,7 +87,10 @@ namespace EggChat
             EggApp.mySignalR.ReceiveLocationEvent += (s, e) =>
             {
                 var userInfo= e as UserInfo;
-                System.Diagnostics.Debug.WriteLine(String.Format("Friend lacation=>{0},{1}",userInfo.Lat,userInfo.Lon), "Friend address");
+                // System.Diagnostics.Debug.WriteLine(String.Format("Friend lacation=>{0},{1}",userInfo.Lat,userInfo.Lon), "Friend address");
+                Toast.MakeText(this.context, "Recieve Friend" + userInfo.Lat + "/" + userInfo.Lon, ToastLength.Short).Show();
+                 LoadFriendLocation(userInfo.Lat,userInfo.Lon);
+                //LoadFriendLocation(24.781514, 121.02496);
             };
 
 
@@ -113,8 +121,10 @@ namespace EggChat
             }
             else
             {
-                String log = String.Format("{0},{1}", mostRecentLocation.Latitude, mostRecentLocation.Longitude);
-                System.Diagnostics.Debug.WriteLine(log, "Location");
+                String log = String.Format("Send=>{0},{1}", mostRecentLocation.Latitude, mostRecentLocation.Longitude);
+
+                //Toast.MakeText(this.context, log, ToastLength.Short).Show();
+                 System.Diagnostics.Debug.WriteLine(log, "Location");
             }
 
             if (mostRecentLocation == null)
@@ -124,8 +134,16 @@ namespace EggChat
             }
         }
 
-        private void LoadWebView()
+        private void LoadFriendLocation(double Lat,double Lon)
         {
+            if (mywbview.webViewReady)
+            {
+                String centerURL = "javascript:centerAt2("
+                          + Lat + ","
+                          + Lon + ")";
+
+                wvMap.LoadUrl(centerURL);
+            }
         }
 
        
@@ -133,6 +151,10 @@ namespace EggChat
         {
             selfUserInfo.Lat = lat;
             selfUserInfo.Lon = lon;
+
+            selfUserInfo.UserName = friendUserInfo.UserName;
+           // Toast.MakeText(this.context, "SendMyLoc" + 10 + "/" + 10, ToastLength.Short).Show();
+
             EggApp.mySignalR.SendLocation(selfUserInfo);
 
         }

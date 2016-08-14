@@ -8,28 +8,75 @@
     <script>
         var centerPoint = new google.maps.LatLng(24.217712, 120.580806);
         var marker;
+        var friendmarker;
         var map;
         var image = 'cabs.png';
         var interval;
         var b = false;
         var markers = [];
+
+        var friendmarkers = [];
         var myLocationMarker;
-        function setAllMap(map) {
+
+        function setAllMap(map)
+        {
             for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(map);
             }
+
+           
         }
+
+        function setAllMap2(map) {
+            for (var i = 0; i < friendmarkers.length; i++) {
+                friendmarkers[i].setMap(map);
+            }
+        }
+
 
         function clearMarkers() {
             setAllMap(null);
         }
 
+        function clearMarkers2() {
+            setAllMap2(null);
+        }
+
+
+        function markFriend(lat, log)
+        {
+            var m2 = new google.maps.LatLng(lat, log);
+            clearMarkers2();
+            friendmarkers = [];
+
+
+            friendmarker = new google.maps.Marker
+             ({
+                 map: map,
+                 draggable: true,
+                 position: m2,
+                 icon: {
+                     path: google.maps.SymbolPath.CIRCLE,
+                     fillColor: '#FF0000',
+                     fillOpacity: 1,
+                     strokeColor: '#FF4D4D',
+                     strokeWeight: 25,
+                     scale: 3
+                 }
+
+             });
+
+            friendmarkers.push(friendmarker);
+        }
+
         function mark(lat, log) {
+
             var m = new google.maps.LatLng(lat, log);
-
+           
             clearMarkers();
-            markers = [];
 
+            markers = [];
+                    
             marker = new google.maps.Marker
             ({
                 map: map,
@@ -47,6 +94,7 @@
             });
 
             markers.push(marker);
+
         }
 
         function initialize() {
@@ -63,21 +111,42 @@
 
             updateTrafficOnMap(map, null, 1);
 
+            centerAt(0, 0);
+
+            centerAt2(0, 0);
+
             interval = window.setInterval(function () {
+
                 if (marker.getVisible()) {
                     marker.setVisible(false);
                 }
                 else {
                     marker.setVisible(true);
                 }
+                
+                if (friendmarker.getVisible()) {
+                    friendmarker.setVisible(false);
+                }
+                else {
+                    friendmarker.setVisible(true);
+                }
+                
+                
             }, 1000);
 
         }
-        0
+        
         function centerAt(latitude, longitude) {
             myLatlng = new google.maps.LatLng(latitude, longitude);
             map.panTo(myLatlng);
             mark(latitude, longitude);
+        }
+
+
+        function centerAt2(latitude, longitude) {
+            myLatlng2 = new google.maps.LatLng(latitude, longitude);
+            map.panTo(myLatlng2);
+            markFriend(latitude, longitude);
         }
 
         function updateTrafficOnMap(map, trafficLayer, on) {
