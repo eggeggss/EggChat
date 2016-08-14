@@ -26,7 +26,7 @@ namespace EggChat
         private Location mostRecentLocation;
         private bool lbSendMyLocation;
         private UserInfo selfUserInfo, friendUserInfo;
-        private MyWebView mywbview;
+        private MyWebViewClient myWbClient;
 
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -52,13 +52,13 @@ namespace EggChat
             wvMap.Settings.BuiltInZoomControls = true;
             wvMap.RequestFocus();
 
-            mywbview = new MyWebView()
+            myWbClient = new MyWebViewClient()
             {
                 mostRecentLocation = this.mostRecentLocation,
                 webViewReady = false
             };
 
-            wvMap.SetWebViewClient(mywbview);
+            wvMap.SetWebViewClient(myWbClient);
 
             wvMap.SetWebChromeClient(new WebChromeClient());
 
@@ -87,10 +87,10 @@ namespace EggChat
             EggApp.mySignalR.ReceiveLocationEvent += (s, e) =>
             {
                 var userInfo= e as UserInfo;
-                // System.Diagnostics.Debug.WriteLine(String.Format("Friend lacation=>{0},{1}",userInfo.Lat,userInfo.Lon), "Friend address");
+
                 Toast.MakeText(this.context, "Recieve Friend" + userInfo.Lat + "/" + userInfo.Lon, ToastLength.Short).Show();
                  LoadFriendLocation(userInfo.Lat,userInfo.Lon);
-                //LoadFriendLocation(24.781514, 121.02496);
+                
             };
 
 
@@ -136,7 +136,7 @@ namespace EggChat
 
         private void LoadFriendLocation(double Lat,double Lon)
         {
-            if (mywbview.webViewReady)
+            if (myWbClient.webViewReady)
             {
                 String centerURL = "javascript:centerAt2("
                           + Lat + ","
@@ -166,7 +166,11 @@ namespace EggChat
 
             if (lbSendMyLocation)
             {
+                //改變自己位置
+                myWbClient.ResetLocation(wvMap, location.Latitude, location.Longitude);
+                //送位置出去
                 SetMyLocationInfoAndSent(location.Latitude, location.Longitude);
+
             }
         }
 
@@ -183,7 +187,7 @@ namespace EggChat
         }
     }
 
-    public class MyWebView : WebViewClient
+    public class MyWebViewClient : WebViewClient
     {
         public bool webViewReady = false;
 
@@ -193,6 +197,11 @@ namespace EggChat
         {
             base.OnPageFinished(view, url);
 
+            ResetLocation(view,mostRecentLocation.Latitude,mostRecentLocation.Longitude);
+        }
+
+        public void ResetLocation(WebView view,double lat, double lon)
+        {
             webViewReady = true;
 
             String centerURL = "javascript:centerAt("
