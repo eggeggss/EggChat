@@ -28,7 +28,6 @@ namespace EggChat
         private UserInfo selfUserInfo, friendUserInfo;
         private MyWebViewClient myWbClient;
 
-
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -82,17 +81,14 @@ namespace EggChat
                 }
             };
 
-
             //取得對方的位置
             EggApp.mySignalR.ReceiveLocationEvent += (s, e) =>
             {
-                var userInfo= e as UserInfo;
+                var userInfo = e as UserInfo;
 
-                Toast.MakeText(this.context, "Recieve Friend" + userInfo.Lat + "/" + userInfo.Lon, ToastLength.Short).Show();
-                 LoadFriendLocation(userInfo.Lat,userInfo.Lon);
-                
+                //Toast.MakeText(this.context, "Recieve Friend" + userInfo.Lat + "/" + userInfo.Lon, ToastLength.Short).Show();
+                LoadFriendLocation(userInfo.Lat, userInfo.Lon);
             };
-
 
             return view;
             //return base.OnCreateView(inflater, container, savedInstanceState);
@@ -123,8 +119,7 @@ namespace EggChat
             {
                 String log = String.Format("Send=>{0},{1}", mostRecentLocation.Latitude, mostRecentLocation.Longitude);
 
-                //Toast.MakeText(this.context, log, ToastLength.Short).Show();
-                 System.Diagnostics.Debug.WriteLine(log, "Location");
+                System.Diagnostics.Debug.WriteLine(log, "Location");
             }
 
             if (mostRecentLocation == null)
@@ -134,7 +129,19 @@ namespace EggChat
             }
         }
 
-        private void LoadFriendLocation(double Lat,double Lon)
+        private void LoadMyLocation(double Lat, double Lon)
+        {
+            if (myWbClient.webViewReady)
+            {
+                String centerURL = "javascript:centerAt("
+                          + Lat + ","
+                          + Lon + ")";
+
+                wvMap.LoadUrl(centerURL);
+            }
+        }
+
+        private void LoadFriendLocation(double Lat, double Lon)
         {
             if (myWbClient.webViewReady)
             {
@@ -146,31 +153,36 @@ namespace EggChat
             }
         }
 
-       
-        private void SetMyLocationInfoAndSent(double lat,double lon)
+        private void SetMyLocationInfoAndSent(double lat, double lon)
         {
             selfUserInfo.Lat = lat;
             selfUserInfo.Lon = lon;
 
             selfUserInfo.UserName = friendUserInfo.UserName;
-           // Toast.MakeText(this.context, "SendMyLoc" + 10 + "/" + 10, ToastLength.Short).Show();
+            // Toast.MakeText(this.context, "SendMyLoc" + 10 + "/" + 10, ToastLength.Short).Show();
 
             EggApp.mySignalR.SendLocation(selfUserInfo);
-
         }
 
         public void OnLocationChanged(Location location)
         {
-            String log = String.Format("{0},{1}", location.Latitude, location.Longitude);
-            System.Diagnostics.Debug.WriteLine(log, "Location");
-
-            if (lbSendMyLocation)
+            // String log = String.Format("{0},{1}", location.Latitude, location.Longitude);
+            // System.Diagnostics.Debug.WriteLine(log, "Location");
+            if (location != null)
             {
-                //改變自己位置
-                myWbClient.ResetLocation(wvMap, location.Latitude, location.Longitude);
-                //送位置出去
-                SetMyLocationInfoAndSent(location.Latitude, location.Longitude);
+                LoadMyLocation(location.Latitude, location.Longitude);
 
+                if (lbSendMyLocation)
+                {
+                    //改變自己位置
+                    //myWbClient.ResetLocation(wvMap, location.Latitude, location.Longitude);
+                    //打自己的位置出去
+                    SetMyLocationInfoAndSent(location.Latitude, location.Longitude);
+                }
+            }
+            else
+            {
+                Toast.MakeText(this.context, "無法取得定位", ToastLength.Short).Show();
             }
         }
 
@@ -196,11 +208,11 @@ namespace EggChat
         public override void OnPageFinished(WebView view, string url)
         {
             base.OnPageFinished(view, url);
-
-            ResetLocation(view,mostRecentLocation.Latitude,mostRecentLocation.Longitude);
+            if (mostRecentLocation != null)
+                ResetLocation(view, mostRecentLocation.Latitude, mostRecentLocation.Longitude);
         }
 
-        public void ResetLocation(WebView view,double lat, double lon)
+        public void ResetLocation(WebView view, double lat, double lon)
         {
             webViewReady = true;
 

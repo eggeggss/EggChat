@@ -7,16 +7,22 @@ using System.Threading.Tasks;
 
 namespace Test
 {
-    class Program
+    public enum PizzaType
     {
-        static void Main(string[] args)
-        {
-            Data();
+        夏威夷 = 0, 哈辣墨西哥 = 1
+    }
 
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            // Data();
+
+            Int32 test = (Int32)PizzaType.夏威夷;
+
+            Console.WriteLine(test);
             Console.ReadKey();
         }
-
-
 
         private static void Data()
         {
@@ -28,9 +34,7 @@ namespace Test
             Console.WriteLine(msg)
             );
             */
-            chatConnection.DeadlockErrorTimeout=new TimeSpan(0,0,3);
-            
-            
+            chatConnection.DeadlockErrorTimeout = new TimeSpan(0, 0, 3);
 
             stockTickerHubProxy.On<String>("hello", (e) =>
             {
@@ -58,6 +62,5 @@ namespace Test
             //chatConnection.Stop();
             //Console.WriteLine("wait");
         }
-
     }
 }

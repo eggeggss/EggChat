@@ -1,25 +1,24 @@
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Common;
-using EggChat;
-using Microsoft.AspNet.SignalR.Client;
+ï»¿using Microsoft.AspNet.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EggChat
-{/*
-    public delegate void EventHandlerUserList(object sender, List<UserInfo> e);
+namespace Common
+{
+    public interface ICrossDevice
+    {
+        //è·¨åŸ·è¡Œç·’
+        void Dispatcher(EventHandler eventhandler, object obj, EventArgs e);
+
+        ///message
+        void PostMessage(String message);
+    }
 
     public class SignalRProxy
     {
-        public Context context { set; get; }
+        private readonly ICrossDevice _crossDevice;
         public HubConnection _hubconnection;
         private IHubProxy _IhubProxy;
 
@@ -29,14 +28,24 @@ namespace EggChat
 
         public event EventHandler ReceiveLocationEvent;
 
-        public static SignalRProxy CreateSignalRProxyFactory(Context context)
+        public SignalRProxy(ICrossDevice _crossDevice)
         {
-            return new SignalRProxy(context);
+            this._crossDevice = _crossDevice;
+            Initial();
         }
 
-        public SignalRProxy(Context context)
+        public void PostMessage(String message)
         {
-            this.context = context;
+            _crossDevice.PostMessage(message);
+        }
+
+        public void Dispatcher(EventHandler eventhandler, object obj, EventArgs e)
+        {
+            eventhandler.Invoke(obj, e);
+        }
+
+        public void Initial()
+        {
             this._hubconnection = new HubConnection("http://eggeggss.ddns.net/chat/");
             this._IhubProxy = this._hubconnection.CreateHubProxy("Chathub");
             this.RegisterAllEvent();
@@ -53,24 +62,24 @@ namespace EggChat
                     {
                         if (hubStat.IsFaulted)
                         {
-                            AndroidUtil.ToastHander(this.context, "ConnectionFail");
+                            this.PostMessage("ConnectionFail");
                         }
                         else
                         {
                             this.RegisterUser(userinfo);
 
-                            AndroidUtil.ToastHander(this.context, "Register Me");
+                            PostMessage("Register Me");
                         }
                     }
                     catch (Exception ex)
                     {
-                        AndroidUtil.ToastHander(this.context, String.Format("{0},{1}", "ConnectionContinueFail:", ex.Message));
+                        PostMessage(String.Format("{0},{1}", "ConnectionContinueFail:", ex.Message));
                     }
                 });
             }
             catch (Exception ex)
             {
-                AndroidUtil.ToastHander(this.context, String.Format("{0},{1}", "»P¦øªA¾¹³s½u®Éµo¥Í¿ù»~:", ex.Message));
+                this.PostMessage(String.Format("{0},{1}", "èˆ‡ä¼ºæœå™¨é€£ç·šæ™‚ç™¼ç”ŸéŒ¯èª¤:", ex.Message));
             }
 
             await result;
@@ -78,42 +87,36 @@ namespace EggChat
             Compelte(sender, null);
         }
 
-        //µù¥Uclient¤èªk
+        //è¨»å†Šclientæ–¹æ³•
         private void RegisterAllEvent()
         {
             this._IhubProxy.On<SignalRMessage>("gotmsg", (msg) =>
             {
-                var handler = new Handler(Looper.MainLooper);
-
-                handler.Post(() =>
+                this.Dispatcher((sender, e) =>
                 {
                     if (this.GotMsgEvent != null)
                         this.GotMsgEvent(this, msg);
-                });
+                }, null, null);
             });
 
             //boardcast
             this._IhubProxy.On<List<UserInfo>>("refreschuserlist", (userinfo) =>
             {
-                var handler = new Handler(Looper.MainLooper);
-
-                handler.Post(() =>
+                this.Dispatcher((sender, e) =>
                 {
                     if (this.RefreschUserListEvent != null)
                         this.RefreschUserListEvent(this, userinfo);
-                });
+                }, null, null);
             });
 
             //receiveFriendLocation
             this._IhubProxy.On<UserInfo>("receiveLocation", (userinfo) =>
             {
-                var handler = new Handler(Looper.MainLooper);
-
-                handler.Post(() =>
+                this.Dispatcher((sender, e) =>
                 {
                     if (this.ReceiveLocationEvent != null)
                         this.ReceiveLocationEvent(this, userinfo);
-                });
+                }, null, null);
             });
         }
 
@@ -127,7 +130,7 @@ namespace EggChat
             }
             else
             {
-                Toast.MakeText(this.context, "»Pserver©|¥¼³s½u", ToastLength.Short).Show();
+                PostMessage("èˆ‡serverå°šæœªé€£ç·š");
             }
         }
 
@@ -139,7 +142,7 @@ namespace EggChat
             }
             else
             {
-                Toast.MakeText(this.context, "»Pserver©|¥¼³s½u", ToastLength.Short).Show();
+                PostMessage("èˆ‡serverå°šæœªé€£ç·š");
             }
         }
 
@@ -151,7 +154,7 @@ namespace EggChat
             }
             else
             {
-                Toast.MakeText(this.context, "»Pserver©|¥¼³s½u", ToastLength.Short).Show();
+                PostMessage("èˆ‡serverå°šæœªé€£ç·š");
             }
         }
 
@@ -163,7 +166,8 @@ namespace EggChat
             }
             else
             {
-                Toast.MakeText(this.context, "»Pserver©|¥¼³s½u", ToastLength.Short).Show();
+                PostMessage("èˆ‡serverå°šæœªé€£ç·š");
+                //Toast.MakeText(this.context, "èˆ‡serverå°šæœªé€£ç·š", ToastLength.Short).Show();
             }
         }
 
@@ -175,7 +179,8 @@ namespace EggChat
             }
             else
             {
-                Toast.MakeText(this.context, "»Pserver©|¥¼³s½u", ToastLength.Short).Show();
+                PostMessage("èˆ‡serverå°šæœªé€£ç·š");
+                //Toast.MakeText(this.context, "èˆ‡serverå°šæœªé€£ç·š", ToastLength.Short).Show();
             }
         }
 
@@ -195,8 +200,21 @@ namespace EggChat
             }
             else
             {
-                Toast.MakeText(this.context, "»Pserver©|¥¼³s½u", ToastLength.Short).Show();
+                PostMessage("èˆ‡serverå°šæœªé€£ç·š");
+                //Toast.MakeText(this.context, "èˆ‡serverå°šæœªé€£ç·š", ToastLength.Short).Show();
             }
         }
-    }*/
+    }
+
+    public delegate void EventHandlerUserList(object sender, List<UserInfo> e);
+
+    public class SignalRMessage : EventArgs
+    {
+        public String From { set; get; }
+        public String Email { set; get; }
+        public String To { set; get; }
+        public String Content { set; get; }
+        public String ImagePath { set; get; }
+        public bool HaveImage { set; get; }
+    }
 }

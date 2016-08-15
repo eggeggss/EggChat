@@ -169,19 +169,22 @@ namespace EggChat
 			public const int leftmsg = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int pika = 2130837531;
+			public const int Map = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int rightmsg = 2130837532;
+			public const int pika = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int where = 2130837533;
+			public const int rightmsg = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int where2 = 2130837534;
+			public const int where = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int where3 = 2130837535;
+			public const int where2 = 2130837535;
+			
+			// aapt resource value: 0x7f020020
+			public const int where3 = 2130837536;
 			
 			static Drawable()
 			{

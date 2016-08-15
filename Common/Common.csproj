@@ -41,7 +41,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Util.cs" />
+    <Compile Include="Common.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Java.Interop">

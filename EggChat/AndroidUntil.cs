@@ -1,23 +1,46 @@
-ï»¿using Android.App;
+using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-namespace Common
+
+namespace EggChat
 {
-    public class Util
+    //±±¨î¤ÏÂà
+    public class AndroidUtil : ICrossDevice
     {
-        public static void ToastHander(Context context,String msg)
+        public void Dispatcher(EventHandler eventhandler, object obj, EventArgs e)
+        {
+            var Handler = new Handler(Looper.MainLooper);
+
+            Handler.Post(() =>
+            {
+                eventhandler.Invoke(obj, e);
+            });
+            //throw new NotImplementedException();
+        }
+
+        public void PostMessage(string message)
+        {
+            this.Dispatcher((s, e) =>
+            {
+                Toast.MakeText(EggApp.Context, message, ToastLength.Short).Show();
+            }, null, null);
+            //throw new NotImplementedException();
+        }
+
+        public static void ToastHander(Context context, String msg)
         {
             var handler = new Handler(Looper.MainLooper);
 
-            handler.Post(()=> {
-
+            handler.Post(() =>
+            {
                 Toast.MakeText(context, msg, ToastLength.Short).Show();
             });
         }

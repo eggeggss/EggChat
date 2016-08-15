@@ -21,6 +21,8 @@ namespace Common
             //setting
             _conn.CreateTable<UserInfo>();
             _conn.CreateTable<UserInfoLog>();
+
+            //CrossDevice cross = new CrossDevice();
         }
 
         public List<UserInfo> SelectUserInfo()

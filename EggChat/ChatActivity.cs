@@ -26,6 +26,7 @@ namespace EggChat
         public UserInfo FriedInfo;
         public UserInfo SelfInfo;
         public SignalRProxy SignalRProxy;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -34,7 +35,6 @@ namespace EggChat
 
             SetContentView(Resource.Layout.Chat);
             this.SignalRProxy = EggApp.mySignalR;
-            // Create your application here
         }
 
         protected override void OnResume()
@@ -70,30 +70,36 @@ namespace EggChat
 
         private void MySignalR_GotMsgEvent(object sender, EventArgs e)
         {
-            SignalRMessage msg = e as SignalRMessage;
-
-            UserInfoLog log = new UserInfoLog()
+            var hander = new Handler(Looper.MainLooper);
+            hander.Post(() =>
             {
-                From = msg.From,
-                To = msg.To,
-                Email = msg.Email,
-                Content = msg.Content,
-                Galary = "left"
-            };
+                SignalRMessage msg = e as SignalRMessage;
 
-            EggApp.eggChatDB.InsertUserInfoLogs(log);
+                UserInfoLog log = new UserInfoLog()
+                {
+                    From = msg.From,
+                    To = msg.To,
+                    Email = msg.Email,
+                    Content = msg.Content,
+                    Galary = "left"
+                };
 
-            Toast.MakeText(this, String.Format("{0} Say:{1}", msg.From, msg.Content), ToastLength.Short).Show();
+                EggApp.eggChatDB.InsertUserInfoLogs(log);
+                try
+                {
+                    Toast.MakeText(this, String.Format("{0} Say:{1}", msg.From, msg.Content), ToastLength.Short).Show();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message, "dEBUG");
+                }
+                MessageActivity msgFragemant = this.FragmentManager.FindFragmentByTag<MessageActivity>("first");
 
-            //MessageActivity msgFragemant = this.FragmentManager.GetFragment<MessageActivity>(null, null);
-            MessageActivity msgFragemant = this.FragmentManager.FindFragmentByTag<MessageActivity>("first");
-
-            if (msgFragemant != null)
-            {
-                msgFragemant.NotifyListChange();
-            }
-
-            //throw new NotImplementedException();
+                if (msgFragemant != null)
+                {
+                    msgFragemant.NotifyListChange();
+                }
+            });
         }
 
         private void ClearStack()

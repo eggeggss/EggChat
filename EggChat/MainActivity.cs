@@ -53,15 +53,16 @@ namespace EggChat
 
             mySignalR.RefreschUserListEvent += (s, e) =>
             {
-                String receiveMsg = String.Format("Receive a BoardCast ,count {0}", e.Count);
+                var hander = new Handler(Looper.MainLooper);
+                hander.Post(() =>
+                {
+                    var k = from q in e
+                            where q.Email != userinfo.Email
+                            select q;
 
-                var k = from q in e
-                        where q.Email != userinfo.Email
-                        select q;
-
-                this.adapter.List = k.ToList();
-                this.adapter.NotifyDataSetChanged();
-                // Toast.MakeText(this, receiveMsg, ToastLength.Short).Show();
+                    this.adapter.List = k.ToList();
+                    this.adapter.NotifyDataSetChanged();
+                });
             };
 
             refresh = this.FindViewById<SwipeRefreshLayout>(Resource.Id.refresher1);
@@ -87,21 +88,7 @@ namespace EggChat
 
         protected override void OnPause()
         {
-            //mySignalR.CloseConnection();
             base.OnPause();
-
-            // mySignalR.GotMsgEvent -= MySignalR_GotMsgEvent;
-        }
-
-        private void MySignalR_GotMsgEvent(object sender, EventArgs e)
-        {
-            SignalRMessage msg = e as SignalRMessage;
-
-            UserInfoLog log = new UserInfoLog() { From = msg.From, To = msg.To, Email = msg.Email, Content = msg.Content };
-
-            EggApp.eggChatDB.InsertUserInfoLogs(log);
-
-            Toast.MakeText(this, msg.Content, ToastLength.Short).Show();
         }
 
         protected override void OnDestroy()
@@ -121,7 +108,6 @@ namespace EggChat
             get
             {
                 return this.List[position];
-                //throw new NotImplementedException();
             }
         }
 
