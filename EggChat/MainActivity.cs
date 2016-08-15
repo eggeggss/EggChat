@@ -75,6 +75,9 @@ namespace EggChat
             };
         }
 
+
+       
+
         private void RefreshReConnet(UserInfo userinfo)
         {
             refresh.Refreshing = true;
@@ -84,6 +87,18 @@ namespace EggChat
                 mySignalR.TriggerGotList();
                 refresh.Refreshing = false;
             });
+        }
+
+        public override bool OnKeyDown([GeneratedEnum] Keycode keyCode, KeyEvent e)
+        {
+            if (keyCode == Keycode.Back)
+            {
+                AndroidUtil.Dialog(this, "Information", "確定要離開嗎?", (s1,e1) => {
+                    mySignalR.CloseConnection();
+                    this.Finish();
+                }, null);
+            }
+            return base.OnKeyDown(keyCode, e);
         }
 
         protected override void OnPause()

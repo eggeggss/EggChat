@@ -45,10 +45,14 @@ namespace EggChat
             //System.Diagnostics.Debug.WriteLine("", "degub");
         }
 
+       
+
         public override void OnCreate()
         {
             base.OnCreate();
         }
+
+        
 
         public override void OnTerminate()
         {

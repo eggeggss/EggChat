@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
 using Common;
 using System;
@@ -48,11 +49,24 @@ namespace EggChat
 
             var editMsg = view.FindViewById<EditText>(Resource.Id.editMsg);
 
+            editMsg.Text = "";
+
             var btnSendMsg = view.FindViewById<Button>(Resource.Id.btnSendMsg);
 
             btnSendMsg.Click += (s1, e1) =>
             {
                 _commuticate.SendMessage(editMsg.Text);
+
+                editMsg.Text = "";
+
+                
+                /*
+                InputMethodManager imm=(InputMethodManager)this._context.GetSystemService(Context.InputMethodService);
+
+                imm.HideSoftInputFromWindow(view.WindowToken, 0);
+                */
+
+
             };
 
             List<UserInfoLog> logs = _commuticate.GetMessage();
@@ -61,7 +75,22 @@ namespace EggChat
 
             _listMsg.Adapter = _msgAdapter;
 
+            GoToLastRow();
+
             return view;
+        }
+
+        private void GoToLastRow()
+        {
+            _listMsg.Post(() =>
+            {
+                var hander = new Handler(Looper.MainLooper);
+                hander.Post(() =>
+                {
+                    if(_msgAdapter.Count>0)
+                     _listMsg.SetSelection(_msgAdapter.Count - 1);
+                });
+            });
         }
 
         public void NotifyListChange()
@@ -72,6 +101,8 @@ namespace EggChat
 
             _msgAdapter.NotifyDataSetChanged();
 
+            GoToLastRow();
+            /*
             _listMsg.Post(() =>
             {
                 var hander = new Handler(Looper.MainLooper);
@@ -79,7 +110,7 @@ namespace EggChat
                 {
                     _listMsg.SetSelection(_msgAdapter.Count - 1);
                 });
-            });
+            });*/
         }
     }
 

@@ -91,7 +91,7 @@ namespace Common
         private void RegisterAllEvent()
         {
             this._IhubProxy.On<SignalRMessage>("gotmsg", (msg) =>
-            {
+            {            
                 this.Dispatcher((sender, e) =>
                 {
                     if (this.GotMsgEvent != null)

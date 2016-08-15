@@ -85,14 +85,9 @@ namespace EggChat
                 };
 
                 EggApp.eggChatDB.InsertUserInfoLogs(log);
-                try
-                {
-                    Toast.MakeText(this, String.Format("{0} Say:{1}", msg.From, msg.Content), ToastLength.Short).Show();
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex.Message, "dEBUG");
-                }
+                
+                Toast.MakeText(this, String.Format("{0} Say:{1}", msg.From, msg.Content), ToastLength.Short).Show();
+                               
                 MessageActivity msgFragemant = this.FragmentManager.FindFragmentByTag<MessageActivity>("first");
 
                 if (msgFragemant != null)

@@ -26,6 +26,8 @@ namespace EggChat
             //throw new NotImplementedException();
         }
 
+        
+
         public void PostMessage(string message)
         {
             this.Dispatcher((s, e) =>
