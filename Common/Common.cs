@@ -9,6 +9,7 @@ namespace Common
 {
     public interface ICrossDevice
     {
+        void SoundPlay();
         //跨執行緒
         void Dispatcher(EventHandler eventhandler, object obj, EventArgs e);
 
@@ -95,7 +96,10 @@ namespace Common
                 this.Dispatcher((sender, e) =>
                 {
                     if (this.GotMsgEvent != null)
+                    {
                         this.GotMsgEvent(this, msg);
+                        _crossDevice.SoundPlay();
+                    }
                 }, null, null);
             });
 

@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Media;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.Widget;
@@ -28,8 +29,14 @@ namespace EggChat
         {
             RequestWindowFeature(WindowFeatures.NoTitle);
             base.OnCreate(bundle);
+
+           
+
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
+
+            OverridePendingTransition(Resource.Animation.pull_in_left, Resource.Animation.push_out_right);
+
         }
 
         protected override void OnStart()

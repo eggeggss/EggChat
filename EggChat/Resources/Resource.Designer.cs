@@ -28,6 +28,31 @@ namespace EggChat
 		{
 		}
 		
+		public partial class Animation
+		{
+			
+			// aapt resource value: 0x7f040000
+			public const int pull_in_left = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int push_out_right = 2130968577;
+			
+			// aapt resource value: 0x7f040002
+			public const int rotate_centre = 2130968578;
+			
+			// aapt resource value: 0x7f040003
+			public const int rotate_corner = 2130968579;
+			
+			static Animation()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Animation()
+			{
+			}
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -44,35 +69,35 @@ namespace EggChat
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f040007
-			public const int barDarkColor = 2130968583;
+			// aapt resource value: 0x7f060007
+			public const int barDarkColor = 2131099655;
 			
-			// aapt resource value: 0x7f040009
-			public const int barLightColor = 2130968585;
+			// aapt resource value: 0x7f060009
+			public const int barLightColor = 2131099657;
 			
-			// aapt resource value: 0x7f040008
-			public const int barMeduimColor = 2130968584;
+			// aapt resource value: 0x7f060008
+			public const int barMeduimColor = 2131099656;
 			
-			// aapt resource value: 0x7f040003
-			public const int listViewBg = 2130968579;
+			// aapt resource value: 0x7f060003
+			public const int listViewBg = 2131099651;
 			
-			// aapt resource value: 0x7f040006
-			public const int sendDarkColor = 2130968582;
+			// aapt resource value: 0x7f060006
+			public const int sendDarkColor = 2131099654;
 			
-			// aapt resource value: 0x7f040004
-			public const int sendLightColor = 2130968580;
+			// aapt resource value: 0x7f060004
+			public const int sendLightColor = 2131099652;
 			
-			// aapt resource value: 0x7f040005
-			public const int sendMeduimColor = 2130968581;
+			// aapt resource value: 0x7f060005
+			public const int sendMeduimColor = 2131099653;
 			
-			// aapt resource value: 0x7f040000
-			public const int textColor = 2130968576;
+			// aapt resource value: 0x7f060000
+			public const int textColor = 2131099648;
 			
-			// aapt resource value: 0x7f040001
-			public const int textFieldColor = 2130968577;
+			// aapt resource value: 0x7f060001
+			public const int textFieldColor = 2131099649;
 			
-			// aapt resource value: 0x7f040002
-			public const int textShadow = 2130968578;
+			// aapt resource value: 0x7f060002
+			public const int textShadow = 2131099650;
 			
 			static Color()
 			{
@@ -199,86 +224,86 @@ namespace EggChat
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int btnChat = 2131099648;
+			// aapt resource value: 0x7f080000
+			public const int btnChat = 2131230720;
 			
-			// aapt resource value: 0x7f06000d
-			public const int btnLogin = 2131099661;
+			// aapt resource value: 0x7f08000d
+			public const int btnLogin = 2131230733;
 			
-			// aapt resource value: 0x7f060001
-			public const int btnMap = 2131099649;
+			// aapt resource value: 0x7f080001
+			public const int btnMap = 2131230721;
 			
-			// aapt resource value: 0x7f060015
-			public const int btnSendMsg = 2131099669;
+			// aapt resource value: 0x7f080015
+			public const int btnSendMsg = 2131230741;
 			
-			// aapt resource value: 0x7f060005
-			public const int btn_open = 2131099653;
+			// aapt resource value: 0x7f080005
+			public const int btn_open = 2131230725;
 			
-			// aapt resource value: 0x7f060012
-			public const int chkMap = 2131099666;
+			// aapt resource value: 0x7f080012
+			public const int chkMap = 2131230738;
 			
-			// aapt resource value: 0x7f06000a
-			public const int editEmail = 2131099658;
+			// aapt resource value: 0x7f08000a
+			public const int editEmail = 2131230730;
 			
-			// aapt resource value: 0x7f06000e
-			public const int editFind = 2131099662;
+			// aapt resource value: 0x7f08000e
+			public const int editFind = 2131230734;
 			
-			// aapt resource value: 0x7f060014
-			public const int editMsg = 2131099668;
+			// aapt resource value: 0x7f080014
+			public const int editMsg = 2131230740;
 			
-			// aapt resource value: 0x7f060008
-			public const int editUserName = 2131099656;
+			// aapt resource value: 0x7f080008
+			public const int editUserName = 2131230728;
 			
-			// aapt resource value: 0x7f060002
-			public const int frameLayout = 2131099650;
+			// aapt resource value: 0x7f080002
+			public const int frameLayout = 2131230722;
 			
-			// aapt resource value: 0x7f06000c
-			public const int gridview = 2131099660;
+			// aapt resource value: 0x7f08000c
+			public const int gridview = 2131230732;
 			
-			// aapt resource value: 0x7f060003
-			public const int head_image = 2131099651;
+			// aapt resource value: 0x7f080003
+			public const int head_image = 2131230723;
 			
-			// aapt resource value: 0x7f06001a
-			public const int img_icon = 2131099674;
+			// aapt resource value: 0x7f08001a
+			public const int img_icon = 2131230746;
 			
-			// aapt resource value: 0x7f060016
-			public const int imvFriend = 2131099670;
+			// aapt resource value: 0x7f080016
+			public const int imvFriend = 2131230742;
 			
-			// aapt resource value: 0x7f060018
-			public const int imvMy = 2131099672;
+			// aapt resource value: 0x7f080018
+			public const int imvMy = 2131230744;
 			
-			// aapt resource value: 0x7f060013
-			public const int listMsg = 2131099667;
+			// aapt resource value: 0x7f080013
+			public const int listMsg = 2131230739;
 			
-			// aapt resource value: 0x7f060010
-			public const int listview = 2131099664;
+			// aapt resource value: 0x7f080010
+			public const int listview = 2131230736;
 			
-			// aapt resource value: 0x7f060006
-			public const int loginLayout = 2131099654;
+			// aapt resource value: 0x7f080006
+			public const int loginLayout = 2131230726;
 			
-			// aapt resource value: 0x7f060019
-			public const int progressbar_updown = 2131099673;
+			// aapt resource value: 0x7f080019
+			public const int progressbar_updown = 2131230745;
 			
-			// aapt resource value: 0x7f06000f
-			public const int refresher1 = 2131099663;
+			// aapt resource value: 0x7f08000f
+			public const int refresher1 = 2131230735;
 			
-			// aapt resource value: 0x7f060004
-			public const int txtDescrip = 2131099652;
+			// aapt resource value: 0x7f080004
+			public const int txtDescrip = 2131230724;
 			
-			// aapt resource value: 0x7f060009
-			public const int txtEmail = 2131099657;
+			// aapt resource value: 0x7f080009
+			public const int txtEmail = 2131230729;
 			
-			// aapt resource value: 0x7f06000b
-			public const int txtHead = 2131099659;
+			// aapt resource value: 0x7f08000b
+			public const int txtHead = 2131230731;
 			
-			// aapt resource value: 0x7f060017
-			public const int txtMsg = 2131099671;
+			// aapt resource value: 0x7f080017
+			public const int txtMsg = 2131230743;
 			
-			// aapt resource value: 0x7f060007
-			public const int txtUserName = 2131099655;
+			// aapt resource value: 0x7f080007
+			public const int txtUserName = 2131230727;
 			
-			// aapt resource value: 0x7f060011
-			public const int wvMap = 2131099665;
+			// aapt resource value: 0x7f080011
+			public const int wvMap = 2131230737;
 			
 			static Id()
 			{
@@ -327,14 +352,30 @@ namespace EggChat
 			}
 		}
 		
+		public partial class Raw
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int sound2 = 2131034112;
+			
+			static Raw()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Raw()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int ApplicationName = 2131034113;
+			// aapt resource value: 0x7f070001
+			public const int ApplicationName = 2131165185;
 			
-			// aapt resource value: 0x7f050000
-			public const int Hello = 2131034112;
+			// aapt resource value: 0x7f070000
+			public const int Hello = 2131165184;
 			
 			static String()
 			{

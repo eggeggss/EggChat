@@ -1,5 +1,6 @@
 using Android.App;
 using Android.Content;
+using Android.Media;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -15,6 +16,20 @@ namespace EggChat
     //±±¨î¤ÏÂà
     public class AndroidUtil : ICrossDevice
     {
+
+        public void SoundPlay()
+        {
+           
+            SoundPool sound = new SoundPool(1, Stream.Music, 5);
+
+            Int32 alert_id = sound.Load(Application.Context, Resource.Raw.sound2, 1);
+
+            System.Threading.Thread.Sleep(600);
+
+            sound.Play(alert_id, 1.0f, 1.0f, 0, 0, 1.0f);
+
+        }
+
         public void Dispatcher(EventHandler eventhandler, object obj, EventArgs e)
         {
             var Handler = new Handler(Looper.MainLooper);
