@@ -1,13 +1,8 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Widget;
-using Microsoft.AspNet.SignalR.Client;
-using SQLite;
+﻿using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
 
 namespace Common
 {
