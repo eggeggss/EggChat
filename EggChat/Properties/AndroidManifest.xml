@@ -5,5 +5,5 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	<application android:label="WhereAreYou"></application>
+	<application android:label="WhereAreYou" android:icon="@drawable/Map"></application>
 </manifest>
