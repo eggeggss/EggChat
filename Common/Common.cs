@@ -69,7 +69,7 @@ namespace Common
                         {
                             this.RegisterUser(userinfo);
 
-                            PostMessage("Register Me");
+                            //PostMessage("跟伺服器連線");
                         }
                     }
                     catch (Exception ex)

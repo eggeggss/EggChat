@@ -57,16 +57,12 @@ namespace EggChat
             {
                 _commuticate.SendMessage(editMsg.Text);
 
-                editMsg.Text = "";
-
-                
+                editMsg.Text = "";        
                 /*
                 InputMethodManager imm=(InputMethodManager)this._context.GetSystemService(Context.InputMethodService);
 
                 imm.HideSoftInputFromWindow(view.WindowToken, 0);
                 */
-
-
             };
 
             List<UserInfoLog> logs = _commuticate.GetMessage();
@@ -101,16 +97,7 @@ namespace EggChat
 
             _msgAdapter.NotifyDataSetChanged();
 
-            GoToLastRow();
-            /*
-            _listMsg.Post(() =>
-            {
-                var hander = new Handler(Looper.MainLooper);
-                hander.Post(() =>
-                {
-                    _listMsg.SetSelection(_msgAdapter.Count - 1);
-                });
-            });*/
+            GoToLastRow();         
         }
     }
 
