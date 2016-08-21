@@ -83,12 +83,11 @@ namespace EggChat
                     Content = msg.Content,
                     Galary = "left"
                 };
-
-                EggApp.eggChatDB.InsertUserInfoLogs(log);
                 
+                EggApp.eggChatDB.InsertUserInfoLogs(log);
+
                 Toast.MakeText(this, String.Format("{0} Say:{1}", msg.From, msg.Content), ToastLength.Short).Show();
-                        
-                       
+                                     
                 MessageActivity msgFragemant = this.FragmentManager.FindFragmentByTag<MessageActivity>("first");
 
                 if (msgFragemant != null)

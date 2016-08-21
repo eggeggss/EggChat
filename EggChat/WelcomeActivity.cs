@@ -12,7 +12,7 @@ using System.Text;
 
 namespace EggChat
 {
-    [Activity(Label = "æ|§“ß‰Ø¡∂©Lite", MainLauncher = true, Icon = "@drawable/Map")]
+    [Activity(Label = "∏Ù√®§¨¨€ß‰Lite", MainLauncher = true, Icon = "@drawable/Map")]
     public class WelcomeActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

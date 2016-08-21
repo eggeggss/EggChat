@@ -47,7 +47,10 @@ namespace Common
 
         public void Initial()
         {
-            this._hubconnection = new HubConnection("http://eggeggss.ddns.net/chat/");
+             this._hubconnection = new HubConnection("http://eggeggss.ddns.net/chat/");
+            //this._hubconnection = new HubConnection("http://microsoft.com.tw/chat/");
+
+
             this._IhubProxy = this._hubconnection.CreateHubProxy("Chathub");
             this.RegisterAllEvent();
         }

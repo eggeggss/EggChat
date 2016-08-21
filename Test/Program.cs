@@ -18,9 +18,17 @@ namespace Test
         {
             // Data();
 
-            Int32 test = (Int32)PizzaType.夏威夷;
+            //Int32 test = (Int32)PizzaType.夏威夷;
 
-            Console.WriteLine(test);
+            // Console.WriteLine(test);
+
+            String cost = "2.55";
+
+
+            double dcost = Convert.ToDouble(cost);
+            
+            Console.WriteLine(Math.Round(dcost,0,MidpointRounding.AwayFromZero));
+
             Console.ReadKey();
         }
 
