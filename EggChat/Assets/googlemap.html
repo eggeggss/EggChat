@@ -18,13 +18,11 @@
         var friendmarkers = [];
         var myLocationMarker;
 
-        function setAllMap(map)
-        {
+        function setAllMap(map) {
             for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(map);
             }
 
-           
         }
 
         function setAllMap2(map) {
@@ -32,7 +30,6 @@
                 friendmarkers[i].setMap(map);
             }
         }
-
 
         function clearMarkers() {
             setAllMap(null);
@@ -42,13 +39,10 @@
             setAllMap2(null);
         }
 
-
-        function markFriend(lat, log)
-        {
+        function markFriend(lat, log) {
             var m2 = new google.maps.LatLng(lat, log);
             clearMarkers2();
             friendmarkers = [];
-
 
             friendmarker = new google.maps.Marker
              ({
@@ -72,11 +66,11 @@
         function mark(lat, log) {
 
             var m = new google.maps.LatLng(lat, log);
-           
+
             clearMarkers();
 
             markers = [];
-                    
+
             marker = new google.maps.Marker
             ({
                 map: map,
@@ -123,29 +117,27 @@
                 else {
                     marker.setVisible(true);
                 }
-                
+
                 if (friendmarker.getVisible()) {
                     friendmarker.setVisible(false);
                 }
                 else {
                     friendmarker.setVisible(true);
                 }
-                
-                
+
             }, 1000);
 
         }
-        
+
         function centerAt(latitude, longitude) {
             myLatlng = new google.maps.LatLng(latitude, longitude);
             map.panTo(myLatlng);
             mark(latitude, longitude);
         }
 
-
         function centerAt2(latitude, longitude) {
             myLatlng2 = new google.maps.LatLng(latitude, longitude);
-            map.panTo(myLatlng2);
+            //map.panTo(myLatlng2);
             markFriend(latitude, longitude);
         }
 

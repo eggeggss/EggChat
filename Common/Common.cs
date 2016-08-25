@@ -10,6 +10,7 @@ namespace Common
     public interface ICrossDevice
     {
         void SoundPlay();
+
         //跨執行緒
         void Dispatcher(EventHandler eventhandler, object obj, EventArgs e);
 
@@ -47,10 +48,8 @@ namespace Common
 
         public void Initial()
         {
-             this._hubconnection = new HubConnection("http://eggeggss.ddns.net/chat/");
-            //this._hubconnection = new HubConnection("http://microsoft.com.tw/chat/");
-
-
+            this._hubconnection = new HubConnection(Resource.signalR_path);
+            
             this._IhubProxy = this._hubconnection.CreateHubProxy("Chathub");
             this.RegisterAllEvent();
         }
@@ -95,7 +94,7 @@ namespace Common
         private void RegisterAllEvent()
         {
             this._IhubProxy.On<SignalRMessage>("gotmsg", (msg) =>
-            {            
+            {
                 this.Dispatcher((sender, e) =>
                 {
                     if (this.GotMsgEvent != null)
