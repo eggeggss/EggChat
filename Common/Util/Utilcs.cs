@@ -21,7 +21,7 @@ namespace Common.Util
             uri = String.Format("{0}?catelog={1}", uri, catelog);
             HttpClient client = new HttpClient();
             var result = client.GetStringAsync(uri);
-            responseString = Util.Base64DecodeingToString(result.Result);
+            responseString = CommonUtil.Base64DecodeingToString(result.Result);
             T obj = JsonConvert.DeserializeObject<T>(responseString);
 
             return obj;
@@ -32,7 +32,7 @@ namespace Common.Util
             String uri = "";
             String input = "";
             uri = Resource.WebApi;
-            content = Util.StringEncodingToBase64(content);
+            content = CommonUtil.StringEncodingToBase64(content);
             input = String.Format("catelog={0}&content={1}", catelog, content);
             HttpClient client = new HttpClient();
             var result = client.GetStringAsync(uri);
@@ -42,7 +42,7 @@ namespace Common.Util
         }
     }
 
-    public class Util
+    public class CommonUtil
     {
         public static String StringEncodingToBase64(String ls_input)
         {

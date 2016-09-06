@@ -4,6 +4,7 @@ using Android.Media;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
 using Common;
 using System;
@@ -18,10 +19,10 @@ namespace EggChat
     //控制反轉
     public class AndroidUtil : ICrossDevice
     {
+        #region ICrossDevice.SoundPlay
 
         public void SoundPlay()
         {
-           
             SoundPool sound = new SoundPool(1, Android.Media.Stream.Music, 5);
 
             Int32 alert_id = sound.Load(Application.Context, Resource.Raw.sound2, 1);
@@ -29,8 +30,11 @@ namespace EggChat
             System.Threading.Thread.Sleep(600);
 
             sound.Play(alert_id, 1.0f, 1.0f, 0, 0, 1.0f);
-
         }
+
+        #endregion ICrossDevice.SoundPlay
+
+        #region ICrossDevice.Dispatcher
 
         public void Dispatcher(EventHandler eventhandler, object obj, EventArgs e)
         {
@@ -43,7 +47,9 @@ namespace EggChat
             //throw new NotImplementedException();
         }
 
-        
+        #endregion ICrossDevice.Dispatcher
+
+        #region ICrossDevice.PostMessage
 
         public void PostMessage(string message)
         {
@@ -54,6 +60,9 @@ namespace EggChat
             //throw new NotImplementedException();
         }
 
+        #endregion ICrossDevice.PostMessage
+
+        #region ToastHander
         public static void ToastHander(Context context, String msg)
         {
             var handler = new Handler(Looper.MainLooper);
@@ -63,7 +72,9 @@ namespace EggChat
                 Toast.MakeText(context, msg, ToastLength.Short).Show();
             });
         }
+        #endregion
 
+        #region Dialog
         public static void Dialog(Context context, String tile, String message, EventHandler<DialogClickEventArgs> ok, EventHandler<DialogClickEventArgs> cancel)
         {
             var dialog = new AlertDialog.Builder(context);
@@ -75,7 +86,10 @@ namespace EggChat
             dialog.Create();
             dialog.Show();
         }
+        #endregion
 
+
+      
         public static void InputDialog(Context context, View view, EventHandler<DialogClickEventArgs> ok, EventHandler<DialogClickEventArgs> cancel)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -87,6 +101,8 @@ namespace EggChat
             builder.Create();
             builder.Show();
         }
+
+        #region EncryptionUtil/DeCrptytionUtil
 
         public String EncryptionUtil(String msg)
         {
@@ -108,13 +124,12 @@ namespace EggChat
             {
                 byte[] data = System.Text.Encoding.Default.GetBytes(msg);
                 crypto.Write(data, 0, data.Length);
-                
             }
             ms.Position = 1;
             BinaryReader brs = new BinaryReader(ms);
             byte[] result = brs.ReadBytes(409600);
 
-            return  System.Text.Encoding.UTF8.GetString(result);
+            return System.Text.Encoding.UTF8.GetString(result);
         }
 
         public String DeCrptytionUtil(String msg)
@@ -136,7 +151,6 @@ namespace EggChat
             //4.加密
             try
             {
-
                 using (MemoryStream ms = new MemoryStream())
                 using (CryptoStream crypto = new CryptoStream(ms, transform, CryptoStreamMode.Read))
                 {
@@ -152,6 +166,13 @@ namespace EggChat
 
             return result;
         }
+        #endregion
 
+        public void HideKeyBoard(Context context, View view)
+        {
+            InputMethodManager imm = (InputMethodManager)context.GetSystemService(Context.InputMethodService);
+
+            imm.HideSoftInputFromWindow(view.WindowToken, 0);
+        }
     }
 }
