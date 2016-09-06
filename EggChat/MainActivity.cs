@@ -30,13 +30,10 @@ namespace EggChat
             RequestWindowFeature(WindowFeatures.NoTitle);
             base.OnCreate(bundle);
 
-           
-
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
             OverridePendingTransition(Resource.Animation.pull_in_left, Resource.Animation.push_out_right);
-
         }
 
         protected override void OnStart()
@@ -82,9 +79,6 @@ namespace EggChat
             };
         }
 
-
-       
-
         private void RefreshReConnet(UserInfo userinfo)
         {
             refresh.Refreshing = true;
@@ -100,7 +94,8 @@ namespace EggChat
         {
             if (keyCode == Keycode.Back)
             {
-                AndroidUtil.Dialog(this, "Information", "確定要離開嗎?", (s1,e1) => {
+                AndroidUtil.Dialog(this, "Information", "確定要離開嗎?", (s1, e1) =>
+                {
                     mySignalR.CloseConnection();
                     this.Finish();
                 }, null);

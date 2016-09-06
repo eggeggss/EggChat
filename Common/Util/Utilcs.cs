@@ -14,47 +14,74 @@ namespace Common.Util
     {
         public static T DownloadJsonData<T>(String catelog)
         {
+            String uri = "";
+            String responseString = "";
             //GetUserInfoList
-            String uri = Resource.WebApi;
+            uri = Resource.WebApi;
             uri = String.Format("{0}?catelog={1}", uri, catelog);
             HttpClient client = new HttpClient();
             var result = client.GetStringAsync(uri);
-
-            String responseString = result.Result;
-
+            responseString = Util.Base64DecodeingToString(result.Result);
             T obj = JsonConvert.DeserializeObject<T>(responseString);
 
             return obj;
         }
 
-        public static void UploadJsonData(String catelog, String content)
+        public static String UploadJsonData(String catelog, String content)
         {
-            String uri = Resource.WebApi;
-            String input = String.Format("catelog={0}&content={1}", catelog, content);
+            String uri = "";
+            String input = "";
+            uri = Resource.WebApi;
+            content = Util.StringEncodingToBase64(content);
+            input = String.Format("catelog={0}&content={1}", catelog, content);
             HttpClient client = new HttpClient();
             var result = client.GetStringAsync(uri);
+            var responseString = result.Result;
 
-            String responseString = result.Result;
+            return responseString;
+        }
+    }
+
+    public class Util
+    {
+        public static String StringEncodingToBase64(String ls_input)
+        {
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(ls_input);
+
+            String st_64 = Convert.ToBase64String(bytes);
+
+            String result = Pattern(st_64);
+
+            return result;
         }
 
-        /*
-        public async static void UpLoadJsonData(String catelog, String content)
+        public static String Base64DecodeingToString(String ls_input)
         {
-            var request = (HttpWebRequest)WebRequest.Create("http://eggeggss.ddns.net/sse/Request.aspx");
+            String ls_depattern = DePattern(ls_input);
 
-            String input = String.Format("catelog={0}&content={1}", catelog, content);
+            byte[] bytes = Convert.FromBase64String(ls_depattern);
 
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(input);
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
+            String result = System.Text.Encoding.UTF8.GetString(bytes, 0, bytes.Length);
 
-            using (var datastream = await request.GetRequestStreamAsync())
-            {
-                datastream.Write(data, 0, data.Length);
-            }
+            return result;
+        }
 
-            var response = await request.GetResponseAsync();
-            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-        }*/
+        private static String Pattern(String input)
+        {
+            input = input.Replace("0", "00");
+            input = input.Replace("+", "01");
+            input = input.Replace("/", "02");
+            input = input.Replace("=", "03");
+            return input;
+        }
+
+        private static String DePattern(String input)
+        {
+            input = input.Replace("00", "0");
+            input = input.Replace("01", "+");
+            input = input.Replace("02", "/");
+            input = input.Replace("03", "=");
+            return input;
+        }
     }
 }
