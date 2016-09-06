@@ -45,14 +45,14 @@ namespace EggChat
 
             this.adapter = new MyList();
             this.adapter.Context = this;
-
+            //self
             UserInfo userinfo = EggApp.eggChatDB.SelectUserInfo()[0];
 
             this.adapter.List = new List<UserInfo>() { userinfo };
 
             listview.Adapter = adapter;
 
-            mySignalR = EggApp.mySignalR;// new SignalRProxy(this);
+            mySignalR = EggApp.mySignalR;
 
             // mySignalR.GotMsgEvent += MySignalR_GotMsgEvent;
 

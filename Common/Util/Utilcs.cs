@@ -14,8 +14,6 @@ namespace Common.Util
     {
         public static T DownloadJsonData<T>(String catelog)
         {
-
-
             String uri = "";
             String responseString = "";
             //GetUserInfoList

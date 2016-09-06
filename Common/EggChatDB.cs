@@ -17,16 +17,14 @@ namespace Common
             //setting
             _conn.CreateTable<UserInfo>();
             _conn.CreateTable<UserInfoLog>();
-
-            //CrossDevice cross = new CrossDevice();
         }
 
-        public List<UserInfo> SelectUserInfo()
+        public  List<UserInfo> SelectUserInfo()
         {
             return _conn.Table<UserInfo>().ToList<UserInfo>();
         }
 
-        public void InsertUserInfo(UserInfo userinfo)
+        public  void InsertUserInfo(UserInfo userinfo)
         {
             _conn.Insert(userinfo);
         }

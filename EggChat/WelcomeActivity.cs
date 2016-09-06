@@ -5,6 +5,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Common;
+using Common.Util;
+using PublicStruct.cs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +24,10 @@ namespace EggChat
             SetContentView(Resource.Layout.WelCome);
 
             string folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+
             EggApp.eggChatDB = new EggChatDB(folder);
+
+            var users= WebApi.DownloadJsonData<IEnumerable<UserInfo>>("GetUserInfoList");
 
             var imgvi = this.FindViewById<ImageView>(Resource.Id.img_icon);
 

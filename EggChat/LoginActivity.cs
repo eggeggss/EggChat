@@ -12,6 +12,8 @@ using Android.Views.InputMethods;
 using Android.Widget;
 using Common;
 using PublicStruct.cs;
+using Common.Util;
+using Newtonsoft.Json;
 
 namespace EggChat
 {
@@ -50,7 +52,7 @@ namespace EggChat
             };
 
             UserInfo user_info = new UserInfo();
-
+        
             var editUserName= this.FindViewById<EditText>(Resource.Id.editUserName);
            
             var editEmail = this.FindViewById<EditText>(Resource.Id.editEmail);
@@ -62,7 +64,6 @@ namespace EggChat
                 user_info.UserName = editUserName.Text;
                 user_info.Email = editEmail.Text;
                 user_info.ImagePath = source_id.ToString();
-
 
                 if (String.IsNullOrEmpty(user_info.UserName))
                 {
@@ -81,12 +82,31 @@ namespace EggChat
                     return;
                 }
 
+                
+                try
+                {
+                    String jsonUserInfo = JsonConvert.SerializeObject(user_info);
 
-                EggApp.eggChatDB.InsertUserInfo(user_info);
+                    try
+                    {
+                        WebApi.UploadJsonData("RegistUserInfo", jsonUserInfo);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(String.Format("{0}=>{1}","Please Check NetworkState!",ex.Message));
+                    }
 
-                Intent intent = new Intent();
-                intent.SetClass(this, typeof(MainActivity));
-                StartActivity(intent);
+                    EggApp.eggChatDB.InsertUserInfo(user_info);
+
+                    Intent intent = new Intent();
+                    intent.SetClass(this, typeof(MainActivity));
+                    StartActivity(intent);
+                }
+                catch (Exception ex)
+                {
+                    AndroidUtil.ToastHander(this, ex.Message);
+                }
+               
 
                 //System.Diagnostics.Debug.Write(string.Format("{0},{1},{2}",user_info.UserName,user_info.Email,user_info.ImagePath), "Debug");
 
