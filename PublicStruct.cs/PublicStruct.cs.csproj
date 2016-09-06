@@ -5,11 +5,11 @@
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{701BCB42-1F4B-432E-8747-AB9BF1DCABBD}</ProjectGuid>
+    <ProjectGuid>{09BAF844-A70A-4224-A887-610A4482D000}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common</RootNamespace>
-    <AssemblyName>Common</AssemblyName>
+    <RootNamespace>PublicStruct.cs</RootNamespace>
+    <AssemblyName>PublicStruct.cs</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,59 +34,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="EggChatDB.cs" />
+    <Compile Include="ChatStruct\Struct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Common.cs" />
-    <Compile Include="Resource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Util\Utilcs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Java.Interop">
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\MonoAndroid\v1.0\Java.Interop.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Client">
-      <HintPath>.\Microsoft.AspNet.SignalR.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Android">
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\MonoAndroid\v6.0\Mono.Android.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>.\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="SQLite-net">
-      <HintPath>.\SQLite-net.dll</HintPath>
+      <HintPath>..\Common\SQLite-net.dll</HintPath>
     </Reference>
     <Reference Include="SQLitePCL.raw">
-      <HintPath>.\SQLitePCL.raw.dll</HintPath>
+      <HintPath>..\Common\SQLitePCL.raw.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="project.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PublicStruct.cs\PublicStruct.cs.csproj">
-      <Project>{09baf844-a70a-4224-a887-610a4482d000}</Project>
-      <Name>PublicStruct.cs</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

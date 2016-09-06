@@ -11,13 +11,14 @@ using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
 using Common;
+using PublicStruct.cs;
 
 namespace EggChat
 {
     [Activity(Label = "LoginActivity")]
     public class LoginActivity : Activity
     {
-        int source_id;
+        int source_id=0;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -32,9 +33,7 @@ namespace EggChat
 
             var gridview = FindViewById<GridView>(Resource.Id.gridview);
 
-            gridview.Adapter = new ImageAdapter(this);
-
-            
+            gridview.Adapter = new ImageAdapter(this);         
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {

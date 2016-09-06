@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Common;
 using Newtonsoft.Json;
+using PublicStruct.cs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

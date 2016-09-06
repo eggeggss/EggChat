@@ -192,6 +192,10 @@
       <Project>{701bcb42-1f4b-432e-8747-ab9bf1dcabbd}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PublicStruct.cs\PublicStruct.cs.csproj">
+      <Project>{09BAF844-A70A-4224-A887-610A4482D000}</Project>
+      <Name>PublicStruct.cs</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\googlemap.html" />

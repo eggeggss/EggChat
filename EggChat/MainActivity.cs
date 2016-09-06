@@ -10,6 +10,7 @@ using Common;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using Newtonsoft.Json;
+using PublicStruct.cs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

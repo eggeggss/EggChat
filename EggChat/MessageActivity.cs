@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
 using Common;
+using PublicStruct.cs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
+using PublicStruct.cs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -214,13 +215,4 @@ namespace Common
 
     public delegate void EventHandlerUserList(object sender, List<UserInfo> e);
 
-    public class SignalRMessage : EventArgs
-    {
-        public String From { set; get; }
-        public String Email { set; get; }
-        public String To { set; get; }
-        public String Content { set; get; }
-        public String ImagePath { set; get; }
-        public bool HaveImage { set; get; }
-    }
 }
