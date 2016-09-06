@@ -87,9 +87,7 @@ namespace EggChat
             dialog.Show();
         }
         #endregion
-
-
-      
+          
         public static void InputDialog(Context context, View view, EventHandler<DialogClickEventArgs> ok, EventHandler<DialogClickEventArgs> cancel)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
