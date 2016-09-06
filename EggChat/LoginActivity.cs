@@ -34,7 +34,7 @@ namespace EggChat
 
             gridview.Adapter = new ImageAdapter(this);
 
-           
+            
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {

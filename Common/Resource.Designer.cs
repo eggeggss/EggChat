@@ -69,5 +69,14 @@ namespace Common {
                 return ResourceManager.GetString("signalR_path", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://eggeggss.ddns.net/sse/Request.aspx.
+        /// </summary>
+        internal static string WebApi {
+            get {
+                return ResourceManager.GetString("WebApi", resourceCulture);
+            }
+        }
     }
 }

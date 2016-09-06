@@ -120,4 +120,7 @@
   <data name="signalR_path" xml:space="preserve">
     <value>http://eggeggss.ddns.net/chat/</value>
   </data>
+  <data name="WebApi" xml:space="preserve">
+    <value>http://eggeggss.ddns.net/sse/Request.aspx</value>
+  </data>
 </root>

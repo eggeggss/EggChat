@@ -1,6 +1,8 @@
-{
+﻿{
   "supports": {},
-  "dependencies": {},
+  "dependencies": {
+    "Microsoft.Net.Http": "2.2.29"
+  },
   "frameworks": {
     ".NETPortable,Version=v4.5,Profile=Profile111": {}
   }
