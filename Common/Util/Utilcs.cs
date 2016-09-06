@@ -14,6 +14,8 @@ namespace Common.Util
     {
         public static T DownloadJsonData<T>(String catelog)
         {
+
+
             String uri = "";
             String responseString = "";
             //GetUserInfoList
@@ -23,6 +25,7 @@ namespace Common.Util
             var result = client.GetStringAsync(uri);
             responseString = CommonUtil.Base64DecodeingToString(result.Result);
             T obj = JsonConvert.DeserializeObject<T>(responseString);
+
 
             return obj;
         }
