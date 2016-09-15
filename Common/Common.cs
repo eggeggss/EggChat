@@ -49,7 +49,7 @@ namespace Common
 
         public void Initial()
         {
-            this._hubconnection = new HubConnection(Resource.signalR_path);
+            this._hubconnection = new HubConnection(WebResource.signalR_path);
             
             this._IhubProxy = this._hubconnection.CreateHubProxy("Chathub");
             this.RegisterAllEvent();

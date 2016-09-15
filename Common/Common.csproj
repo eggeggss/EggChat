@@ -42,12 +42,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
-    <Compile Include="Resource.Designer.cs">
+    <Compile Include="Util\Utilcs.cs" />
+    <Compile Include="WebResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
+      <DependentUpon>WebResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Util\Utilcs.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Java.Interop">
@@ -77,9 +77,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resource.resx">
+    <EmbeddedResource Include="WebResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <LastGenOutput>WebResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

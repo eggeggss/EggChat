@@ -27,7 +27,9 @@ namespace EggChat
 
             EggApp.eggChatDB = new EggChatDB(folder);
 
-            var users= WebApi.DownloadJsonData<IEnumerable<UserInfo>>("GetUserInfoList");
+            var users= WebApi.DownloadJsonData<IEnumerable<UserInfoList>>("GetUserInfoList",WebResource.WebApi);
+
+            //EggApp.eggChatDB.InsertAllUserInfoList(users.ToList());
 
             var imgvi = this.FindViewById<ImageView>(Resource.Id.img_icon);
 

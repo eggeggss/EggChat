@@ -12,19 +12,29 @@ namespace Common.Util
 {
     public class WebApi
     {
-        public static T DownloadJsonData<T>(String catelog)
-        {
-            String uri = "";
+        public async static Task<T> DownloadJsonDataCustom<T>(String uri)
+        {         
             String responseString = "";
             //GetUserInfoList
-            uri = Resource.WebApi;
-            uri = String.Format("{0}?catelog={1}", uri, catelog);
             HttpClient client = new HttpClient();
-            var result = client.GetStringAsync(uri);
-            responseString = CommonUtil.Base64DecodeingToString(result.Result);
+            var result =await client.GetStringAsync(uri);
+
+            responseString = CommonUtil.Base64DecodeingToString(result);
             T obj = JsonConvert.DeserializeObject<T>(responseString);
 
+            //responseString = CommonUtil.Base64DecodeingToString(result.Result);
+            //T obj = JsonConvert.DeserializeObject<T>(responseString);
 
+            return obj;
+        } 
+
+        public async static Task<T> DownloadJsonData<T>(String catelog)
+        {
+            String uri =  WebResource.WebApi;
+            uri = String.Format("{0}?catelog={1}", uri, catelog);
+            var obj =await WebApi.DownloadJsonDataCustom<T>(uri);
+            
+            //T obj = WebApi.DownloadJsonDataCustom<T>(uri);
             return obj;
         }
 
@@ -32,13 +42,13 @@ namespace Common.Util
         {
             String uri = "";
             String input = "";
-            uri = Resource.WebApi;
+            uri = WebResource.WebApi;
             content = CommonUtil.StringEncodingToBase64(content);
-            input = String.Format("catelog={0}&content={1}", catelog, content);
+            input = String.Format("{0}?catelog={1}&content={2}", uri,catelog, content);
             HttpClient client = new HttpClient();
-            var result = client.GetStringAsync(uri);
+            var result = client.GetStringAsync(input);
             var responseString = result.Result;
-
+            responseString=CommonUtil.Base64DecodeingToString(responseString);
             return responseString;
         }
     }

@@ -53,4 +53,28 @@ namespace PublicStruct.cs
         public String ImagePath { set; get; }
         public bool HaveImage { set; get; }
     }
+
+    public class AppSetting
+    {
+        [SQLite.PrimaryKey, SQLite.AutoIncrement]
+        public int ID { set; get; }
+        public String WebAPI { set; get; }
+    }
+
+    public class Item : IComparable<Item>
+    {
+        [SQLite.PrimaryKey, SQLite.AutoIncrement]
+        public int ID { set; get; }
+
+        public string Descrip { set; get; }
+
+        public string Link { set; get; }
+
+        public int CompareTo(Item other)
+        {
+            return this.ID > other.ID ? -1 : 1;
+            // throw new NotImplementedException();
+        }
+    }
+
 }
